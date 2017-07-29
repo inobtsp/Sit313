@@ -14,6 +14,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Custom.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomCell.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)detail.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)login.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -33,6 +36,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)login.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)detail.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

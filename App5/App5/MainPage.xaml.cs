@@ -35,6 +35,11 @@ namespace App5
         {
             await Navigation.PushAsync(new login());
         }
+
+        private async void listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            await Navigation.PushAsync(new detail());
+        }
     }
 	}
 

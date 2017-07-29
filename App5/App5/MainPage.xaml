@@ -4,10 +4,10 @@
              xmlns:local="clr-namespace:App5"
              x:Class="App5.MainPage">
     <StackLayout>
-    <ListView  x:Name="listView" HasUnevenRows="True">
+    <ListView  x:Name="listView" HasUnevenRows="True" ItemSelected="listView_ItemSelected">
         <ListView.ItemTemplate>
             <DataTemplate>
-                <ViewCell>
+                <ViewCell >
                     <StackLayout Orientation="Vertical">
                         <Label Text="{Binding detail}" />
                         <StackLayout Orientation="Horizontal">
