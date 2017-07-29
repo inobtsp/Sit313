@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:App5"
              x:Class="App5.MainPage">
-
+    <StackLayout>
     <ListView  x:Name="listView" HasUnevenRows="True">
         <ListView.ItemTemplate>
             <DataTemplate>
@@ -11,15 +11,15 @@
                     <StackLayout Orientation="Vertical">
                         <Label Text="{Binding detail}" />
                         <StackLayout Orientation="Horizontal">
-                        <Label Text="{Binding Topic}" />
-                        <Label Text="{Binding detail}" />
-                        <Label Text="{Binding author}" />
-
-                    </StackLayout>
+                            <Label Text="{Binding Topic}" />
+                            <Label Text="{Binding detail}" />
+                            <Label Text="{Binding author}" />
+                        </StackLayout>
                     </StackLayout>
                 </ViewCell>
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
-
-</ContentPage>       
+    <Button Text="Haven't login? Click here to log in !" Clicked="gotologin"/>
+    </StackLayout>
+</ContentPage>      

@@ -30,6 +30,11 @@ namespace App5
 
             };
         }
+
+        private async void gotologin (object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new login());
+        }
     }
 	}
 

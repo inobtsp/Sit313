@@ -13,7 +13,7 @@ namespace App5
 		{
 			InitializeComponent();
 
-			MainPage = new App5.MainPage();
+			MainPage = new NavigationPage(new App5.MainPage());
 		}
 
 		protected override void OnStart ()
