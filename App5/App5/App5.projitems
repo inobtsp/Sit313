@@ -12,7 +12,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Custom.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)category.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Custom.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CustomCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)detail.xaml.cs">
       <SubType>Code</SubType>
@@ -43,5 +44,8 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)detail.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)ViewModels\" />
   </ItemGroup>
 </Project>
