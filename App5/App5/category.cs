@@ -156,7 +156,7 @@ namespace App5
                 await Navigation.PushAsync(new MainPage());
             };
             grid.GestureRecognizers.Add(tgr);
-            // Accomodate iPhone status bar.
+            // Accomodate Phone status bar.
             this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
 
             // Build the page.

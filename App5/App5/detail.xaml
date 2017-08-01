@@ -2,10 +2,24 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App5.detail">
-    <ContentPage.Content>
+    <ScrollView>
         <StackLayout>
-            <Label Text="Welcome to Xamarin Forms!" />
-         
+            <ListView  x:Name="listView" HasUnevenRows="True" ItemSelected="listView_ItemSelected">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell >
+                            <StackLayout Orientation="Vertical">
+                                <Label Text="{Binding detail}" />
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Topic}" />
+                                    <Label Text="{Binding detail}" />
+                                    <Label Text="{Binding author}" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
-    </ContentPage.Content>
+    </ScrollView>
 </ContentPage>

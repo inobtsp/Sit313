@@ -38,7 +38,7 @@ namespace App5
 
                 var layout3 = new StackLayout { Padding = new Thickness(5, 20)  };
                 this.Content = layout3;
-                var Labletitle = new Label { Text = "Edit your information", FontSize = 50 };
+                var Labletitle = new Label { Text = "Edit your information", FontSize = 30 };
                 var labeladdress = new Label { Text = "Address", TextColor = Color.FromHex("#77d065"), FontSize = 20 };
                 var labelconfirmenewpass = new Label { Text = "Confirme you password", TextColor = Color.FromHex("#77d065"), FontSize = 20 };
                 var labelpostcode = new Label { Text = "Postcode", TextColor = Color.FromHex("#77d065"), FontSize = 20 };
