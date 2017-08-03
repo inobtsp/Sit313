@@ -53,7 +53,7 @@ namespace App5
                 var labeloldpass = new Label { Text = "Enter your old password", TextColor = Color.FromHex("#5858FA"), FontSize = 12 };
                 var labelnewpass = new Label { Text = "Enter your new password", TextColor = Color.FromHex("#5858FA"), FontSize = 12 };
                 var Edit = new Button { Text = "Confirme Change" , BackgroundColor = Color.FromHex("#5858FA"), TextColor = Color.White };
-                var upload = new Button { Text = "Upload your head portrait ",HeightRequest = 5, HorizontalOptions= LayoutOptions.EndAndExpand};
+                var upload = new Button { Text = "Upload to change your head portrait ",HeightRequest = 5, HorizontalOptions= LayoutOptions.EndAndExpand};
                 var head = new Image {HeightRequest=75 ,WidthRequest=75, Source = "monkey.jpg" };
                 var confirmenewpass = new Entry { IsPassword = true };
                 var address = new Entry { };
@@ -97,6 +97,7 @@ namespace App5
                 layout.Children.Remove(forgetlable);
                 layout.Children.Remove(registerbutton);
                 //define the properties of the page
+                var layoutuppload = new StackLayout { Padding = new Thickness(5, 20), Orientation = StackOrientation.Horizontal };
                 var layout2 = new StackLayout { Padding = new Thickness(5, 20) };
                 this.Content = layout2;
                 var labeladdress = new Label { Text = "Address", TextColor = Color.FromHex("#5858FA"), FontSize = 12 }; 
@@ -104,12 +105,16 @@ namespace App5
                 var labelpostcode = new Label { Text = "Postcode", TextColor = Color.FromHex("#5858FA"), FontSize =12 };
                 var register2 = new Button { Text = "Register", BackgroundColor = Color.FromHex("#5858FA"), TextColor = Color.White };
                 var head = new Image { HeightRequest = 100, WidthRequest = 100, HorizontalOptions = LayoutOptions.Center , Source = "head.jpg"};
+                var upload = new Button { Text = "Upload your head portrait ", HeightRequest = 5, HorizontalOptions = LayoutOptions.EndAndExpand };
                 var confirme = new Entry { IsPassword = true };
                 var address = new Entry {  };
                 var postcode = new Entry { };
                 //adding the properties into the layout
                 Content = new ScrollView { Content = layout2 };
-                layout2.Children.Add(head);
+                layoutuppload.Children.Add(head);
+                layoutuppload.Children.Add(upload);
+                layout2.Children.Add(layoutuppload);
+                //layout2.Children.Add(head);
                 layout2.Children.Add(labelusername);
                 layout2.Children.Add(username);
                 layout2.Children.Add(labelpassword);

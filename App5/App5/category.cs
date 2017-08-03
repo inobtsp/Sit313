@@ -56,7 +56,7 @@ namespace App5
             grid.Children.Add(new Label
             {
                 Text = "Dota2",
-                TextColor = Color.Black,
+                TextColor = Color.White,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
             }, 0, 0);
@@ -70,7 +70,7 @@ namespace App5
             grid.Children.Add(new Label
             {
                 Text = "League of Legend",
-                TextColor = Color.Black,
+                TextColor = Color.White,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
             }, 0, 1);
@@ -83,7 +83,7 @@ namespace App5
             grid.Children.Add(new Label
             {
                 Text = "Zelda",
-                TextColor = Color.Black,
+                TextColor = Color.White,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
             }, 0, 2);
@@ -96,7 +96,7 @@ namespace App5
             grid.Children.Add(new Label
             {
                 Text = "Super Mario",
-                TextColor = Color.Black,
+                TextColor = Color.White,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
             }, 1, 0);
@@ -109,7 +109,7 @@ namespace App5
             grid.Children.Add(new Label
             {
                 Text = "World of Warcraft",
-                TextColor = Color.Black,
+                TextColor = Color.White,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
             }, 1, 1);
@@ -123,7 +123,7 @@ namespace App5
             grid.Children.Add(new Label
             {
                 Text = "HeartStone",
-                TextColor = Color.Black,
+                TextColor = Color.White,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
             }, 1, 2);
@@ -136,7 +136,7 @@ namespace App5
             grid.Children.Add(new Label
             {
                 Text = "Witches 3",
-                TextColor = Color.Black,
+                TextColor = Color.White,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
             }, 2, 0);
@@ -150,7 +150,7 @@ namespace App5
             grid.Children.Add(new Label
             {
                 Text = "GTA 5",
-                TextColor = Color.Black,
+                TextColor = Color.White,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
             }, 2, 1);
@@ -162,7 +162,7 @@ namespace App5
             grid.Children.Add(new Label
             {
                 Text = "More",
-                TextColor = Color.Black,
+                TextColor = Color.White,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
             }, 2, 2);
