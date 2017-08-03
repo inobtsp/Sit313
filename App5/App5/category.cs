@@ -11,8 +11,28 @@ namespace App5
 	{
 		public category ()
 		{
-            Grid grid = new Grid
+
+
+
+
+      
+            var Item1 = new ToolbarItem  
+            {  
+               Text = "Item 1",
+               Icon = "person.png"
+               
+             };  
+             this.ToolbarItems.Add(Item1);
+            Item1.Activated += gotologin;
+            async void gotologin(object a, EventArgs b)
             {
+                Console.WriteLine("success got login");
+                await Navigation.PushAsync(new login());
+            }
+
+            Grid grid = new Grid{
+                BackgroundColor = Color.FromHex("#5882FA"),
+                HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 RowDefinitions =
                 {
@@ -30,7 +50,7 @@ namespace App5
                     new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }
                 }
             };
-
+            
             grid.Children.Add(new Image
             {
                 Source = "monkey.jpg",
@@ -52,7 +72,7 @@ namespace App5
             }, 0, 1);
             grid.Children.Add(new Label
             {
-                Text = "Dota2",
+                Text = "League of Legend",
                 TextColor = Color.Black,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
@@ -65,7 +85,7 @@ namespace App5
             }, 0, 2);
             grid.Children.Add(new Label
             {
-                Text = "Dota2",
+                Text = "Zelda",
                 TextColor = Color.Black,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
@@ -78,7 +98,7 @@ namespace App5
             }, 1, 0);
             grid.Children.Add(new Label
             {
-                Text = "Dota2",
+                Text = "Super Mario",
                 TextColor = Color.Black,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
@@ -91,7 +111,7 @@ namespace App5
             }, 1, 1);
             grid.Children.Add(new Label
             {
-                Text = "Dota2",
+                Text = "World of Warcraft",
                 TextColor = Color.Black,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
@@ -105,7 +125,7 @@ namespace App5
             }, 1, 2);
             grid.Children.Add(new Label
             {
-                Text = "Dota2",
+                Text = "HeartStone",
                 TextColor = Color.Black,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
@@ -118,7 +138,7 @@ namespace App5
             }, 2, 0);
             grid.Children.Add(new Label
             {
-                Text = "Dota2",
+                Text = "Witches 3",
                 TextColor = Color.Black,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
@@ -132,7 +152,7 @@ namespace App5
             }, 2, 1);
             grid.Children.Add(new Label
             {
-                Text = "Dota2",
+                Text = "GTA 5",
                 TextColor = Color.Black,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
@@ -144,7 +164,7 @@ namespace App5
             }, 2, 2);
             grid.Children.Add(new Label
             {
-                Text = "Dota2",
+                Text = "More",
                 TextColor = Color.Black,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
@@ -157,7 +177,7 @@ namespace App5
             };
             grid.GestureRecognizers.Add(tgr);
             // Accomodate Phone status bar.
-            this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
+            //this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
 
             // Build the page.
             this.Content = grid;

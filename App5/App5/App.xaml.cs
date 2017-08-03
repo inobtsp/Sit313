@@ -15,7 +15,7 @@ namespace App5
            // MainPage = new NavigationPage();
 
             //MainPage.Navigation.PushAsync(new Cus());
-            MainPage = new NavigationPage(new App5.category());
+            MainPage = new NavigationPage(new App5.MainPage());
 		}
 
 		protected override void OnStart ()

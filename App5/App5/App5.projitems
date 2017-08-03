@@ -13,8 +13,10 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)category.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)createpost.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)post.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)replypage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Custom.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CustomCell.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)detail.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

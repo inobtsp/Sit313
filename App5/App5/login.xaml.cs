@@ -14,16 +14,22 @@ namespace App5
 	{
 		public login ()
 		{
-			InitializeComponent ();
-            var layout = new StackLayout { Padding = new Thickness(5, 20) };
+			
+            var scroll = new ScrollView { };
+            var layout = new StackLayout { Padding = new Thickness(5, 20) };    
             this.Content = layout;
-            var labelusername = new Label { Text = "username", TextColor = Color.FromHex("#77d065"), FontSize = 20 }; layout.Children.Add(labelusername);
+            var labelusername = new Label { Text = "username", TextColor = Color.FromHex("#5858FA"), FontSize = 12 }; layout.Children.Add(labelusername);
             var username = new Entry { Placeholder = "" }; layout.Children.Add(username);
-            var labelpassword = new Label { Text = "password", TextColor = Color.FromHex("#77d065"), FontSize = 20 }; layout.Children.Add(labelpassword);
+            var labelpassword = new Label { Text = "password", TextColor = Color.FromHex("#5858FA"), FontSize = 12 }; layout.Children.Add(labelpassword);
             var password = new Entry { IsPassword = true }; layout.Children.Add(password);
             var forgetlable = new Label { FontSize = 10, TextColor = Color.Blue }; layout.Children.Add(forgetlable);
-        var loginbutton = new Button { Text = "Click here to log in" }; layout.Children.Add(loginbutton);
-            var registerbutton = new Button { Text = "NO Account? Register here!" }; layout.Children.Add(registerbutton);
+        var loginbutton = new Button { Text = "Click here to log in", BackgroundColor = Color.FromHex("#5858FA"), TextColor = Color.White }; layout.Children.Add(loginbutton);
+            var registerbutton = new Button { Text = "NO Account? Register here!",BackgroundColor= Color.FromHex("#5858FA") ,TextColor=Color.White}; layout.Children.Add(registerbutton);
+          
+
+
+            Content = new ScrollView { Content = layout };
+            
             loginbutton.Clicked += logged;
               void logged(object sender, EventArgs e)
             {
@@ -37,19 +43,26 @@ namespace App5
                 layout.Children.Remove(registerbutton);
 
                 var layout3 = new StackLayout { Padding = new Thickness(5, 20)  };
+                var layoutuppload = new StackLayout { Padding = new Thickness(5, 20), Orientation = StackOrientation.Horizontal };
                 this.Content = layout3;
                 var Labletitle = new Label { Text = "Edit your information", FontSize = 30 };
-                var labeladdress = new Label { Text = "Address", TextColor = Color.FromHex("#77d065"), FontSize = 20 };
-                var labelconfirmenewpass = new Label { Text = "Confirme you password", TextColor = Color.FromHex("#77d065"), FontSize = 20 };
-                var labelpostcode = new Label { Text = "Postcode", TextColor = Color.FromHex("#77d065"), FontSize = 20 };
-                var labeloldpass = new Label { Text = "Enter your old password", TextColor = Color.FromHex("#77d065"), FontSize = 20 };
-                var labelnewpass = new Label { Text = "Enter your new password", TextColor = Color.FromHex("#77d065"), FontSize = 20 };
-                var Edit = new Button { Text = "Confirme Change" };
+                var labeladdress = new Label { Text = "Address", TextColor = Color.FromHex("#5858FA"), FontSize = 12 };
+                var labelconfirmenewpass = new Label { Text = "Confirme you password", TextColor = Color.FromHex("#5858FA"), FontSize = 12 };
+                var labelpostcode = new Label { Text = "Postcode", TextColor = Color.FromHex("#5858FA"), FontSize = 12 };
+                var labeloldpass = new Label { Text = "Enter your old password", TextColor = Color.FromHex("#5858FA"), FontSize = 12 };
+                var labelnewpass = new Label { Text = "Enter your new password", TextColor = Color.FromHex("#5858FA"), FontSize = 12 };
+                var Edit = new Button { Text = "Confirme Change" , BackgroundColor = Color.FromHex("#5858FA"), TextColor = Color.White };
+                var upload = new Button { Text = "Upload your head portrait ",HeightRequest = 5, HorizontalOptions= LayoutOptions.EndAndExpand};
+                var head = new Image {HeightRequest=75 ,WidthRequest=75,Source="head.jpg" };
                 var confirmenewpass = new Entry { IsPassword = true };
                 var address = new Entry { };
                 var oldpass = new Entry { };
                 var newpass = new Entry { };
                 var postcode = new Entry { };
+                Content = new ScrollView { Content = layout3 };
+                layoutuppload.Children.Add(head);
+                layoutuppload.Children.Add(upload);
+                layout3.Children.Add(layoutuppload);
                 layout3.Children.Add(Labletitle);
                 layout3.Children.Add(labelusername);
                 layout3.Children.Add(username);
@@ -65,8 +78,10 @@ namespace App5
                 layout3.Children.Add(postcode);
                 layout3.Children.Add(Edit);
                 Edit.Clicked += confirmechange;
-                void confirmechange(object a, EventArgs b)
+                async void confirmechange(object a, EventArgs b)
                 {
+                    Console.WriteLine("success change");
+                    await Navigation.PushAsync(new MainPage());
                     DisplayAlert("Change Success", "You are successfully change your information", "OK");
                 }
             }
@@ -78,13 +93,16 @@ namespace App5
                 layout.Children.Remove(registerbutton);
                 var layout2 = new StackLayout { Padding = new Thickness(5, 20) };
                 this.Content = layout2;
-                var labeladdress = new Label { Text = "Address", TextColor = Color.FromHex("#77d065"), FontSize = 20 }; 
-                var labelconfirme = new Label { Text = "Confirme you password", TextColor = Color.FromHex("#77d065"), FontSize = 20 }; 
-                var labelpostcode = new Label { Text = "Postcode", TextColor = Color.FromHex("#77d065"), FontSize = 20 };
-                var register2 = new Button { Text = "Register"};
+                var labeladdress = new Label { Text = "Address", TextColor = Color.FromHex("#5858FA"), FontSize = 12 }; 
+                var labelconfirme = new Label { Text = "Confirme you password", TextColor = Color.FromHex("#5858FA"), FontSize = 12 }; 
+                var labelpostcode = new Label { Text = "Postcode", TextColor = Color.FromHex("#5858FA"), FontSize =12 };
+                var register2 = new Button { Text = "Register", BackgroundColor = Color.FromHex("#5858FA"), TextColor = Color.White };
+                var head = new Image { HeightRequest = 100, WidthRequest = 100, Source = "monkey.jpg", HorizontalOptions = LayoutOptions.Center };
                 var confirme = new Entry { IsPassword = true };
                 var address = new Entry {  };
                 var postcode = new Entry { };
+                Content = new ScrollView { Content = layout2 };
+                layout2.Children.Add(head);
                 layout2.Children.Add(labelusername);
                 layout2.Children.Add(username);
                 layout2.Children.Add(labelpassword);
@@ -97,8 +115,10 @@ namespace App5
                 layout2.Children.Add(postcode);
                 layout2.Children.Add(register2);
                 register2.Clicked += registersuccess;
-                void registersuccess(object a, EventArgs b)
+                async void registersuccess(object a, EventArgs b)
                 {
+                    Console.WriteLine("success regist");
+                    await Navigation.PushAsync(new login());
                     DisplayAlert("Register Success", "Welcome to inobtsp forum; your are Register success", "OK");
                 }
 

@@ -2,24 +2,37 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:App5"
-             x:Class="App5.MainPage">
-    <StackLayout>
-    <ListView  x:Name="listView" HasUnevenRows="True" ItemSelected="listView_ItemSelected">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell >
-                    <StackLayout Orientation="Vertical">
-                        <Label Text="{Binding detail}" />
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding Topic}" />
-                            <Label Text="{Binding detail}" />
-                            <Label Text="{Binding author}" />
-                        </StackLayout>
-                    </StackLayout>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
-    <Button Text="Haven't login? Click here to log in !" Clicked="gotologin"/>
-    </StackLayout>
+             x:Class="App5.MainPage"
+             Title="Game forum"
+>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="MenuItem1" Order="Primary" Activated="gotologin" Icon="person.png" Text="Item 1" Priority="0" />
+        <ToolbarItem Name="MenuItem2" Order="Secondary" Activated="gotocategory" Text="see more game forum" Priority="1" />
+    </ContentPage.ToolbarItems>
+
+    <ScrollView>
+        <AbsoluteLayout>
+            <StackLayout>
+                <Label Text="Dota2" FontSize="30" BackgroundColor="#5858FA" HorizontalTextAlignment="Center"></Label>
+                <ListView  x:Name="listView" HasUnevenRows="True" ItemSelected="listView_ItemSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell >
+                                <StackLayout Orientation="Vertical">
+                                    <Label Text="{Binding Topic}"  HorizontalOptions="FillAndExpand" Font="Bold,16" />
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding author}" HorizontalOptions="FillAndExpand" TextColor="Gray" FontSize="10"/>
+                                        <Label Text="{Binding time}"  HorizontalTextAlignment="End" TextColor="Gray" FontSize="10"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+            <Image x:Name="post" Source="create.png"   AbsoluteLayout.LayoutBounds="1,1,35,35"  AbsoluteLayout.LayoutFlags="PositionProportional"
+          ></Image>
+        </AbsoluteLayout >
+    </ScrollView>
+  
 </ContentPage>      
