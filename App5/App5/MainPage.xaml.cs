@@ -12,7 +12,7 @@ namespace App5
 		public MainPage()
 		{
             InitializeComponent();
-            
+            //create the dinding data for thelistview
             listView.ItemsSource = new List<Custom>
             {
                 new Custom
@@ -31,6 +31,7 @@ namespace App5
                 },
 
             };
+            //set the event handler for create button
             var tgr = new TapGestureRecognizer { NumberOfTapsRequired = 1 };
             tgr.TappedCallback = async (sender, args) =>
             {
@@ -38,26 +39,24 @@ namespace App5
             };
            post.GestureRecognizers.Add(tgr);
         }
-        
+        //set event handler for menu item
                 private async void gotologin (object sender, EventArgs e)
         {
             await Navigation.PushAsync(new login());
         }
+        //set event handler for another menu item
         private async void gotocategory(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new category());
         }
 
-
+        //set event handler for listview
         private async void listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             await Navigation.PushAsync(new detail());
         }
 
-        private void MenuItem1_Activated(object sender, EventArgs e)
-        {
-
-        }
+ 
     }
 	}
 

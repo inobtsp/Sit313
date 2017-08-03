@@ -2159,7 +2159,7 @@ namespace App5.Droid
 			public const int ic_tv_light = 2130837650;
 			
 			// aapt resource value: 0x7f020093
-			public const int Icon = 2130837651;
+			public const int icon = 2130837651;
 			
 			// aapt resource value: 0x7f020094
 			public const int monkey = 2130837652;

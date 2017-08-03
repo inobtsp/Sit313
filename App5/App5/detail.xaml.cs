@@ -15,6 +15,7 @@ namespace App5
 		public detail()
 		{
 			InitializeComponent ();
+            //create binding data for listview
             listView.ItemsSource = new List<Custom>
             {
                 new Custom
@@ -39,6 +40,7 @@ namespace App5
                 },
 
             };
+            //set event handler for image button
             var tgr = new TapGestureRecognizer { NumberOfTapsRequired = 1 };
             tgr.TappedCallback = async (sender, args) =>
             {

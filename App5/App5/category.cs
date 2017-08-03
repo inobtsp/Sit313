@@ -11,12 +11,8 @@ namespace App5
 	{
 		public category ()
 		{
-
-
-
-
-      
-            var Item1 = new ToolbarItem  
+            //create toolbaritem
+     var Item1 = new ToolbarItem  
             {  
                Text = "Item 1",
                Icon = "person.png"
@@ -29,7 +25,8 @@ namespace App5
                 Console.WriteLine("success got login");
                 await Navigation.PushAsync(new login());
             }
-
+            //create grid  set column and row definition to the grid
+            
             Grid grid = new Grid{
                 BackgroundColor = Color.FromHex("#5882FA"),
                 HorizontalOptions = LayoutOptions.FillAndExpand,
@@ -50,7 +47,7 @@ namespace App5
                     new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) }
                 }
             };
-            
+            //adding element to grid
             grid.Children.Add(new Image
             {
                 Source = "monkey.jpg",
@@ -169,7 +166,7 @@ namespace App5
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
             }, 2, 2);
-       
+       //event handler for the grid
             var tgr = new TapGestureRecognizer { NumberOfTapsRequired = 1 };
             tgr.TappedCallback = async (sender, args) =>
             {

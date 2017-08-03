@@ -14,7 +14,7 @@ namespace App5
 	{
 		public login ()
 		{
-			
+			//define property for loginpage and adding them into layout
             var scroll = new ScrollView { };
             var layout = new StackLayout { Padding = new Thickness(5, 20) };    
             this.Content = layout;
@@ -29,10 +29,11 @@ namespace App5
 
 
             Content = new ScrollView { Content = layout };
-            
+            //goto profile page
             loginbutton.Clicked += logged;
               void logged(object sender, EventArgs e)
             {
+                //reset the page
                 DisplayAlert("Login Success", "Welcome to inobtsp forum; your are login success", "OK");
                 layout.Children.Remove(labelusername);
                 layout.Children.Remove(username);
@@ -41,7 +42,7 @@ namespace App5
                 layout.Children.Remove(forgetlable);
                 layout.Children.Remove(loginbutton);
                 layout.Children.Remove(registerbutton);
-
+                //define the page for profile
                 var layout3 = new StackLayout { Padding = new Thickness(5, 20)  };
                 var layoutuppload = new StackLayout { Padding = new Thickness(5, 20), Orientation = StackOrientation.Horizontal };
                 this.Content = layout3;
@@ -53,12 +54,13 @@ namespace App5
                 var labelnewpass = new Label { Text = "Enter your new password", TextColor = Color.FromHex("#5858FA"), FontSize = 12 };
                 var Edit = new Button { Text = "Confirme Change" , BackgroundColor = Color.FromHex("#5858FA"), TextColor = Color.White };
                 var upload = new Button { Text = "Upload your head portrait ",HeightRequest = 5, HorizontalOptions= LayoutOptions.EndAndExpand};
-                var head = new Image {HeightRequest=75 ,WidthRequest=75,Source="head.jpg" };
+                var head = new Image {HeightRequest=75 ,WidthRequest=75, Source = "monkey.jpg" };
                 var confirmenewpass = new Entry { IsPassword = true };
                 var address = new Entry { };
                 var oldpass = new Entry { };
                 var newpass = new Entry { };
                 var postcode = new Entry { };
+                //adding properties into the page
                 Content = new ScrollView { Content = layout3 };
                 layoutuppload.Children.Add(head);
                 layoutuppload.Children.Add(upload);
@@ -78,6 +80,7 @@ namespace App5
                 layout3.Children.Add(postcode);
                 layout3.Children.Add(Edit);
                 Edit.Clicked += confirmechange;
+                //event handler when people done their editing
                 async void confirmechange(object a, EventArgs b)
                 {
                     Console.WriteLine("success change");
@@ -86,21 +89,25 @@ namespace App5
                 }
             }
             registerbutton.Clicked += register;
+            //go to register page in 
             void register(object sender, EventArgs e)
             {
+                //reset the pages 
                 layout.Children.Remove(loginbutton);
                 layout.Children.Remove(forgetlable);
                 layout.Children.Remove(registerbutton);
+                //define the properties of the page
                 var layout2 = new StackLayout { Padding = new Thickness(5, 20) };
                 this.Content = layout2;
                 var labeladdress = new Label { Text = "Address", TextColor = Color.FromHex("#5858FA"), FontSize = 12 }; 
                 var labelconfirme = new Label { Text = "Confirme you password", TextColor = Color.FromHex("#5858FA"), FontSize = 12 }; 
                 var labelpostcode = new Label { Text = "Postcode", TextColor = Color.FromHex("#5858FA"), FontSize =12 };
                 var register2 = new Button { Text = "Register", BackgroundColor = Color.FromHex("#5858FA"), TextColor = Color.White };
-                var head = new Image { HeightRequest = 100, WidthRequest = 100, Source = "monkey.jpg", HorizontalOptions = LayoutOptions.Center };
+                var head = new Image { HeightRequest = 100, WidthRequest = 100, HorizontalOptions = LayoutOptions.Center , Source = "head.jpg"};
                 var confirme = new Entry { IsPassword = true };
                 var address = new Entry {  };
                 var postcode = new Entry { };
+                //adding the properties into the layout
                 Content = new ScrollView { Content = layout2 };
                 layout2.Children.Add(head);
                 layout2.Children.Add(labelusername);
@@ -115,6 +122,7 @@ namespace App5
                 layout2.Children.Add(postcode);
                 layout2.Children.Add(register2);
                 register2.Clicked += registersuccess;
+                //event handler fot regist button
                 async void registersuccess(object a, EventArgs b)
                 {
                     Console.WriteLine("success regist");
