@@ -174,7 +174,7 @@ namespace App5
             };
             grid.GestureRecognizers.Add(tgr);
             // Accomodate Phone status bar.
-            //this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
+            this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
 
             // Build the page.
             this.Content = grid;

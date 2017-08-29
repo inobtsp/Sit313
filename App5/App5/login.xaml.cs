@@ -3,38 +3,138 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Net;
+using System.IO;
 using Xamarin.Forms;
+using System.Diagnostics;
 using Xamarin.Forms.Xaml;
 
 namespace App5
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class login : ContentPage
-	{
-		public login ()
-		{
-			//define property for loginpage and adding them into layout
-            var scroll = new ScrollView { };
-            var layout = new StackLayout { Padding = new Thickness(5, 20) };    
-            this.Content = layout;
-            var labelusername = new Label { Text = "username", TextColor = Color.FromHex("#5858FA"), FontSize = 12 }; layout.Children.Add(labelusername);
-            var username = new Entry { Placeholder = "" }; layout.Children.Add(username);
-            var labelpassword = new Label { Text = "password", TextColor = Color.FromHex("#5858FA"), FontSize = 12 }; layout.Children.Add(labelpassword);
-            var password = new Entry { IsPassword = true }; layout.Children.Add(password);
-            var forgetlable = new Label { FontSize = 10, TextColor = Color.Blue }; layout.Children.Add(forgetlable);
-        var loginbutton = new Button { Text = "Click here to log in", BackgroundColor = Color.FromHex("#5858FA"), TextColor = Color.White }; layout.Children.Add(loginbutton);
-            var registerbutton = new Button { Text = "NO Account? Register here!",BackgroundColor= Color.FromHex("#5858FA") ,TextColor=Color.White}; layout.Children.Add(registerbutton);
-          
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public class storeuser
+    {
+        private static string url = "http://introtoapps.com/datastore.php?appid=215330413";
+        public string username;
+        public string password;
 
+        public storeuser(string username)
+        {
+            this.username = username;
+      
 
-            Content = new ScrollView { Content = layout };
-            //goto profile page
-            loginbutton.Clicked += logged;
-              void logged(object sender, EventArgs e)
+        }
+        public storeuser(string username ,string password)
+        {
+            this.username = username;
+          this.password = password;
+
+        }
+
+        public async Task<bool> loaduser()
+        {
+            try
             {
+                string actualurl = url + "&action=load&objectid=" + this.username + ".user";
+                Uri uri = new Uri(actualurl);
+                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
+               // request.ContentType = "application/json";
+                request.Method = "GET";
+                using (WebResponse response = await request.GetResponseAsync())
+                {
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        StreamReader objstream = new StreamReader(stream);
+                        string sline = "";
+                        while (sline != null)
+                        {
+                            sline = objstream.ReadLine();
+                            if (sline != null)
+                            this.password = sline; 
+                        
+                        }
+
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+            return true;
+        }
+      /*  public async void saveuser()
+        {
+            try
+            {
+                string actualurl = url + "&action=save&objectid=" + this.username + ".user" + "&data=" + password;
+
+                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
+                request.ContentType = "application/json";
+                request.Method = "GET";
+                using (WebResponse response = await request.GetResponseAsync())
+                {
+                    using (Stream stream = response.GetResponseStream())
+                    {
+                        StreamReader objstream = new StreamReader(stream);
+                        string sline = "";
+                        while (sline != null)
+                        {
+                            sline = objstream.ReadLine();
+                            if (sline != null)
+                                Console.WriteLine(sline);
+                        }
+
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }*/
+    }
+
+        public partial class login : ContentPage
+        {
+            public login()
+            {
+                //define property for loginpage and adding them into layout
+                var scroll = new ScrollView { };
+                var layout = new StackLayout { Padding = new Thickness(5, 20) };
+                this.Content = layout;
+                var labelusername = new Label { Text = "username", TextColor = Color.FromHex("#5858FA"), FontSize = 12 }; layout.Children.Add(labelusername);
+                var username = new Entry { Placeholder = "" }; layout.Children.Add(username);
+                var labelpassword = new Label { Text = "password", TextColor = Color.FromHex("#5858FA"), FontSize = 12 }; layout.Children.Add(labelpassword);
+                var password = new Entry { IsPassword = true }; layout.Children.Add(password);
+                var forgetlable = new Label { FontSize = 10, TextColor = Color.Blue }; layout.Children.Add(forgetlable);
+                var loginbutton = new Button { Text = "Click here to log in", BackgroundColor = Color.FromHex("#5858FA"), TextColor = Color.White }; layout.Children.Add(loginbutton);
+                var registerbutton = new Button { Text = "NO Account? Register here!", BackgroundColor = Color.FromHex("#5858FA"), TextColor = Color.White }; layout.Children.Add(registerbutton);
+
+
+
+                Content = new ScrollView { Content = layout };
+                //goto profile page
+                loginbutton.Clicked += logged ;
+                async void logged(object sender, EventArgs e)
+                {
+                    /*storeuser testuser = new storeuser("dante", "deakin");
+                    testuser.saveuser();*/
+                      storeuser testuser = new storeuser("dante");
+                await testuser.loaduser();
+                string tested = testuser.password;
+                      await DisplayAlert("alert",testuser.password,"OK");
+                }
+            }
+        }
+    
+}
+
+
+
                 //reset the page
-                DisplayAlert("Login Success", "Welcome to inobtsp forum; your are login success", "OK");
+               /* DisplayAlert("Login Success", "Welcome to inobtsp forum; your are login success", "OK");
                 layout.Children.Remove(labelusername);
                 layout.Children.Remove(username);
                 layout.Children.Remove(labelpassword);
@@ -137,6 +237,6 @@ namespace App5
 
             }
            
-        }
-	}
-}
+        }*/
+	//}
+//}
