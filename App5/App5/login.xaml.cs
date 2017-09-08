@@ -8,6 +8,7 @@ using System.IO;
 using Xamarin.Forms;
 using System.Diagnostics;
 using Xamarin.Forms.Xaml;
+using Newtonsoft.Json;
 
 namespace App5
 {
@@ -17,7 +18,13 @@ namespace App5
         private static string url = "http://introtoapps.com/datastore.php?appid=215330413";
         public string username;
         public string password;
-
+        public static storeuser CreatUserFromJson(string json)
+        {
+            storeuser user = JsonConvert.DeserializeObject<storeuser>(json);
+            return user;
+        }
+        public storeuser() {
+        }
         public storeuser(string username)
         {
             this.username = username;
@@ -30,70 +37,67 @@ namespace App5
           this.password = password;
 
         }
+        public string ToJsonString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
 
-        public async Task<bool> loaduser()
+        public static async Task<string> getServerResponse(HttpWebRequest request)
+        {
+            string result = "";
+            using (WebResponse response = await request.GetResponseAsync())
+            {
+                using (Stream stream = response.GetResponseStream())
+                {
+                    StreamReader objstream = new StreamReader(stream);
+                    string sline = "";
+                    while (sline != null)
+                    {
+                        sline = objstream.ReadLine();
+                        if (sline != null)
+                            result += sline+"\n";
+                    }
+
+                }
+            }return result;
+        }
+        public static async Task<storeuser> loaduser(string username)
         {
             try
             {
-                string actualurl = url + "&action=load&objectid=" + this.username + ".user";
+                string actualurl = url + "&action=load&objectid=" + username + ".user";
                 Uri uri = new Uri(actualurl);
                 HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
                // request.ContentType = "application/json";
                 request.Method = "GET";
-                using (WebResponse response = await request.GetResponseAsync())
-                {
-                    using (Stream stream = response.GetResponseStream())
-                    {
-                        StreamReader objstream = new StreamReader(stream);
-                        string sline = "";
-                        while (sline != null)
-                        {
-                            sline = objstream.ReadLine();
-                            if (sline != null)
-                            this.password = sline; 
-                        
-                        }
-
-                    }
-                }
+                string result = await getServerResponse(request);
+                return CreatUserFromJson(result);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return false;
+                return null;
             }
-            return true;
+         
         }
-      /*  public async void saveuser()
+        public async void saveuser()
         {
             try
             {
-                string actualurl = url + "&action=save&objectid=" + this.username + ".user" + "&data=" + password;
-
-                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(new Uri(url));
-                request.ContentType = "application/json";
+                string jsonString = this.ToJsonString();
+                jsonString = WebUtility.UrlEncode(jsonString);
+                string actualurl = url + "&action=save&objectid=" + this.username + ".user" + "&data=" + jsonString;
+                Uri uri = new Uri(actualurl);
+                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
+              
                 request.Method = "GET";
-                using (WebResponse response = await request.GetResponseAsync())
-                {
-                    using (Stream stream = response.GetResponseStream())
-                    {
-                        StreamReader objstream = new StreamReader(stream);
-                        string sline = "";
-                        while (sline != null)
-                        {
-                            sline = objstream.ReadLine();
-                            if (sline != null)
-                                Console.WriteLine(sline);
-                        }
-
-                    }
-                }
+                string result = await getServerResponse(request);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
-        }*/
+        }
     }
 
         public partial class login : ContentPage
@@ -105,13 +109,13 @@ namespace App5
                 var layout = new StackLayout { Padding = new Thickness(5, 20) };
                 this.Content = layout;
                 var labelusername = new Label { Text = "username", TextColor = Color.FromHex("#5858FA"), FontSize = 12 }; layout.Children.Add(labelusername);
-                var username = new Entry { Placeholder = "" }; layout.Children.Add(username);
+                var username = new Entry { Placeholder = "" ,ClassId="loginusername"}; layout.Children.Add(username);
                 var labelpassword = new Label { Text = "password", TextColor = Color.FromHex("#5858FA"), FontSize = 12 }; layout.Children.Add(labelpassword);
-                var password = new Entry { IsPassword = true }; layout.Children.Add(password);
+                var password = new Entry { IsPassword = true,ClassId="loginpassword" }; layout.Children.Add(password);
                 var forgetlable = new Label { FontSize = 10, TextColor = Color.Blue }; layout.Children.Add(forgetlable);
                 var loginbutton = new Button { Text = "Click here to log in", BackgroundColor = Color.FromHex("#5858FA"), TextColor = Color.White }; layout.Children.Add(loginbutton);
                 var registerbutton = new Button { Text = "NO Account? Register here!", BackgroundColor = Color.FromHex("#5858FA"), TextColor = Color.White }; layout.Children.Add(registerbutton);
-
+            
 
 
                 Content = new ScrollView { Content = layout };
@@ -119,13 +123,18 @@ namespace App5
                 loginbutton.Clicked += logged ;
                 async void logged(object sender, EventArgs e)
                 {
-                    /*storeuser testuser = new storeuser("dante", "deakin");
-                    testuser.saveuser();*/
-                      storeuser testuser = new storeuser("dante");
-                await testuser.loaduser();
-                string tested = testuser.password;
-                      await DisplayAlert("alert",testuser.password,"OK");
-                }
+                /*  storeuser testuser = new storeuser("dante", "deakin");
+                  testuser.saveuser();*/
+                /*  storeuser testuser = new storeuser("dante");
+            await testuser.loaduser();
+            string tested = testuser.password;
+                  await DisplayAlert("alert",testuser.password,"OK");*/
+
+              /*  storeuser testuser = storeuser.CreatUserFromJson("{\"username\":\"dante\",\"password\":\"deakin123456\"}");
+                 testuser.saveuser();*/
+                storeuser testuser = await storeuser.loaduser("dante");
+                await DisplayAlert("alert", testuser.password, "OK");
+            }
             }
         }
     
