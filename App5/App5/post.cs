@@ -11,6 +11,7 @@ namespace App5
     {
         public post()
         {
+            
             //define element and property
             var layout = new StackLayout { Padding = new Thickness(5, 20) , BackgroundColor=Color.FromHex("#5858FA") };
             this.Content = layout;
@@ -24,6 +25,7 @@ namespace App5
             postbutton.Clicked += posted;
              async void posted(object sender, EventArgs e)
             {
+                
                 Console.WriteLine("posted success");
                 DisplayAlert("Success!","You are succssfullt post!", "OK");
                 await Navigation.PushAsync(new MainPage());
