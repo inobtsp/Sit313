@@ -16,6 +16,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)logpage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)post.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)replypage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)storeuser.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Custom.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)detail.xaml.cs">
       <SubType>Code</SubType>

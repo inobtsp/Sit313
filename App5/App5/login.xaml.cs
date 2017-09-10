@@ -254,7 +254,7 @@ namespace App5
                 {
                     Console.WriteLine("success regist");
                     await Navigation.PushAsync(new login());
-                    storeuser testuser = storeuser.CreatUserFromJson("{\"username\":\"" + usernamer.Text + "\",\"password\":\"" + passwordr.Text + "\",\"address\":\"" + address.Text + "\",\"postcode\":\"" + postcode.Text + "\",\"logged\":\"" + loginornot + "\"}");
+                    storeuser testuser = storeuser.CreatUserFromJson("[{\"username\":\"" + usernamer.Text + "\",\"password\":\"" + passwordr.Text + "\",\"address\":\"" + address.Text + "\",\"postcode\":\"" + postcode.Text + "\",\"logged\":\"" + loginornot + "\"}]");
                     testuser.saveuser();
                     DisplayAlert("Register Success", "Welcome to inobtsp forum; your are Register success", "OK");
                 }

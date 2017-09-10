@@ -9,7 +9,8 @@ namespace App5
 {
 	public class category : ContentPage
 	{
-		public category ()
+        string[] topictext;
+        public category ()
 		{
             //create toolbaritem
      var Item1 = new ToolbarItem  
@@ -35,8 +36,8 @@ namespace App5
                 {
                      
                
-                     new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
-                      new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
+                       new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
+                       new RowDefinition { Height = new GridLength(1, GridUnitType.Star) },
                        new RowDefinition { Height = new GridLength(1, GridUnitType.Star) }
                 },
                 ColumnDefinitions =
@@ -60,7 +61,7 @@ namespace App5
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
             }, 0, 0);
-
+            
             grid.Children.Add(new Image
             {
                 Source = "monkey.jpg",
@@ -166,6 +167,12 @@ namespace App5
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
             }, 2, 2);
+            for (int i = 0; i < 9; i++) {
+               
+                topictext[i] = ((Label)grid.Children.ElementAt(i)).Text;
+                Console.WriteLine(topictext[i]);
+                    }
+            
        //event handler for the grid
             var tgr = new TapGestureRecognizer { NumberOfTapsRequired = 1 };
             tgr.TappedCallback = async (sender, args) =>
@@ -175,7 +182,7 @@ namespace App5
             grid.GestureRecognizers.Add(tgr);
             // Accomodate Phone status bar.
             this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
-
+            
             // Build the page.
             this.Content = grid;
         }
