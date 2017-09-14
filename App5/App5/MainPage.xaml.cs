@@ -9,11 +9,21 @@ namespace App5
 {
 	public partial class MainPage : ContentPage
 	{
+        public async void GetJsonList()
+            {
+            storepost postlist = new storepost();
+           
+                string result = await postlist.loadpost("http://introtoapps.com/datastore.php?appid=215330413&action=load&objectid=wow.topic");
+               Jsonconverter converter = new Jsonconverter();
+                listView.ItemsSource = converter.List(result);
+            }
 		public MainPage()
 		{
+            
             InitializeComponent();
+            GetJsonList();
             //create the dinding data for thelistview
-            listView.ItemsSource = new List<Custom>
+            /*listView.ItemsSource = new List<Custom>
             {
                 new Custom
                 {
@@ -30,7 +40,7 @@ namespace App5
                     author= "inobtsp"
                 },
 
-            };
+            };*/
             //set the event handler for create button
             var tgr = new TapGestureRecognizer { NumberOfTapsRequired = 1 };
             tgr.TappedCallback = async (sender, args) =>

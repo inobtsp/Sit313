@@ -167,11 +167,7 @@ namespace App5
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.End
             }, 2, 2);
-            for (int i = 0; i < 9; i++) {
-               
-                topictext[i] = ((Label)grid.Children.ElementAt(i)).Text;
-                Console.WriteLine(topictext[i]);
-                    }
+
             
        //event handler for the grid
             var tgr = new TapGestureRecognizer { NumberOfTapsRequired = 1 };

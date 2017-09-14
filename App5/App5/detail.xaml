@@ -31,7 +31,10 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackLayout>
+                <ListView>
+                    
+                </ListView>
+            </StackLayout>
         <Image x:Name="reply" Source="create.png"   AbsoluteLayout.LayoutBounds="1,1,35,35"  AbsoluteLayout.LayoutFlags="PositionProportional"
           ></Image>
         </AbsoluteLayout >

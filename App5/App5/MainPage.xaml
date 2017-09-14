@@ -19,10 +19,10 @@
                         <DataTemplate>
                             <ViewCell >
                                 <StackLayout Orientation="Vertical">
-                                    <Label Text="{Binding Topic}"  HorizontalOptions="FillAndExpand" Font="Bold,16" />
+                                    <Label Text="{Binding Posttopic}"  HorizontalOptions="FillAndExpand" Font="Bold,16" />
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding author}" HorizontalOptions="FillAndExpand" TextColor="Gray" FontSize="10"/>
-                                        <Label Text="{Binding time}"  HorizontalTextAlignment="End" TextColor="Gray" FontSize="10"/>
+                                        <Label Text="{Binding Postdetail}" HorizontalOptions="FillAndExpand" TextColor="Gray" FontSize="10"/>
+                                        <Label Text="{Binding Postid}"  HorizontalTextAlignment="End" TextColor="Gray" FontSize="10"/>
                                     </StackLayout>
                                 </StackLayout>
                             </ViewCell>
