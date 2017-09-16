@@ -173,12 +173,14 @@ namespace App5
             var tgr = new TapGestureRecognizer { NumberOfTapsRequired = 1 };
             tgr.TappedCallback = async (sender, args) =>
             {
+                //Label thebutton = (Label)sender;
+                Console.WriteLine(sender);
                 await Navigation.PushAsync(new MainPage());
             };
             grid.GestureRecognizers.Add(tgr);
             // Accomodate Phone status bar.
             this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
-            
+           
             // Build the page.
             this.Content = grid;
         }

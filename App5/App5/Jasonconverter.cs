@@ -28,12 +28,21 @@ namespace App5
             List<postdata> list = JsonConvert.DeserializeObject<List<postdata>>(jason);
             return list;
         }
+        public List<storetopic> Listreply(String jason)
+        {
+            List<storetopic> list = JsonConvert.DeserializeObject<List<storetopic>>(jason);
+            return list;
+        }
 
         public String ListToJason(List<postdata> posts)
         {
             String jason = JsonConvert.SerializeObject(posts);
             return jason;
         }
-
+        public String ListToJasonreply(List<storetopic> posts)
+        {
+            String jason = JsonConvert.SerializeObject(posts);
+            return jason;
+        }
     }
 }

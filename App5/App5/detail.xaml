@@ -3,10 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="App5.detail"
               >
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Name="MenuItem1" Order="Primary" Activated="gotologin" Icon="person.png" Text="Item 1" Priority="0" />
+        <ToolbarItem Name="MenuItem2" Order="Secondary" Activated="gotocategory" Text="see more game forum" Priority="1" />
+    </ContentPage.ToolbarItems>
+
     <ScrollView>
         <AbsoluteLayout>
             <StackLayout>
-            <Label Text="LGD is the best team！" HorizontalTextAlignment="Start" Font="Bold,30" BackgroundColor="#8181F7" />
+            <Label x:Name="replytopic" HorizontalTextAlignment="Start" Font="Bold,30" BackgroundColor="#8181F7" />
             <ListView  x:Name="listView" HasUnevenRows="True" >
                 <ListView.ItemTemplate>
                     <DataTemplate>
@@ -20,20 +25,20 @@
                                     <Label Text="{Binding level}" Font="12"></Label>
                                 </StackLayout>
                             </StackLayout>
-                              
+                             
                                 <Label Text="{Binding detail}" HorizontalTextAlignment="Start" Font="15"></Label>
                                 <Image Source="{Binding image}" HorizontalOptions="Start" HeightRequest="75" WidthRequest="75"/>
                                 <Image Source="{Binding image1}" HorizontalOptions="Start" HeightRequest="75" WidthRequest="75"/>
                                 <Label Text="{Binding time}" TextColor="Gray" HorizontalTextAlignment="End" FontSize="10"></Label>
-
+                             
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-                <ListView>
+                
                     
-                </ListView>
+                
             </StackLayout>
         <Image x:Name="reply" Source="create.png"   AbsoluteLayout.LayoutBounds="1,1,35,35"  AbsoluteLayout.LayoutFlags="PositionProportional"
           ></Image>

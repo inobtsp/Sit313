@@ -12,11 +12,29 @@ namespace App5
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class detail : ContentPage
 	{
-		public detail()
+        public async void GetJsonList()
+        {try
+            {
+                storereply postlist = new storereply();
+
+                string result = await postlist.loadpost("http://introtoapps.com/datastore.php?appid=215330413&action=load&objectid=post");
+                Jsonconverter converter = new Jsonconverter();
+                string topic = replytopic.Text;
+                listView.ItemsSource = converter.List(result);
+
+            }
+            catch (Exception ex) {Console.WriteLine(ex); }
+        }
+
+        
+		public detail(string data)
 		{
 			InitializeComponent ();
+           
+               replytopic.Text = data;
+            Console.WriteLine(replytopic.Text);
             //create binding data for listview
-            listView.ItemsSource = new List<Custom>
+       /* listView.ItemsSource = new List<Custom>
             {
                 new Custom
                 {
@@ -39,14 +57,26 @@ namespace App5
                     image="monkey.jpg"
                 },
 
-            };
+            };*/
+           
             //set event handler for image button
             var tgr = new TapGestureRecognizer { NumberOfTapsRequired = 1 };
             tgr.TappedCallback = async (sender, args) =>
-            {
-                await Navigation.PushAsync(new replypage());
+            {  
+                await Navigation.PushAsync(new replypage(replytopic.Text));
             };
             reply.GestureRecognizers.Add(tgr);
+   
         }
-	}
+        //set event handler for menu item
+        private async void gotologin(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new login());
+        }
+        //set event handler for another menu item
+        private async void gotocategory(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new category());
+        }
+    }
 }

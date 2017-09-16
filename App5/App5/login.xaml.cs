@@ -30,12 +30,12 @@ namespace App5
         public storeuser()
         {
         }
-      /*  public storeuser(string username)
+       public storeuser(string username)
         {
             this.username = username;
 
 
-        }*/
+        }
         public storeuser(string username, string password, string address,string postcode,bool loginornot)
         {
             this.username = username;
@@ -150,20 +150,29 @@ namespace App5
             loginbutton.Clicked += logged;
             async void logged(object sender, EventArgs e)
             {
-                /*  storeuser testuser = new storeuser("dante", "deakin");
-                  testuser.saveuser();*/
-                /*  storeuser testuser = new storeuser("dante");
-              await testuser.loaduser();
-               string tested = testuser.password;
-                  await DisplayAlert("alert",testuser.password,"OK");*/
+                // StreamWriter sw = new StreamWriter("db.txt");
+                try
+                {
+                    /*  storeuser testuser = new storeuser("dante", "deakin");
+                      testuser.saveuser();*/
+                    /*  storeuser testuser = new storeuser("dante");
+                  await testuser.loaduser();
+                   string tested = testuser.password;
+                      await DisplayAlert("alert",testuser.password,"OK");*/
 
-                /*storeuser testuser = storeuser.CreatUserFromJson("{\"username\":\"" + username.Text + "\",\"password\":\"" + password.Text + "\"}");
-                testuser.saveuser();*/
-                StreamWriter sw = new StreamWriter("C:/Users/yangyang/Documents/Visual Studio 2017/Projects/yangyanghe 215330413  project1", append: true);
-                sw.WriteLine(username.Text+"/n"+password.Text);
-                sw.Close();
-                storeuser testuser = await storeuser.loaduser(""+username.Text+"");
-                 await DisplayAlert("alert", testuser.address, "OK");
+                    /*storeuser testuser = storeuser.CreatUserFromJson("{\"username\":\"" + username.Text + "\",\"password\":\"" + password.Text + "\"}");
+                    testuser.saveuser();*/
+
+                    DependencyService.Get<ISaveAndLoad>().SaveText("temp.txt", username.Text + "," + password.Text);
+                    
+                    storeuser testuser = await storeuser.loaduser("" + username.Text + "");
+                   /* var fileService = DependencyService.Get<ISaveAndLoad>();
+                    await fileService.SaveText("db.txt", username.Text + "/n" + password.Text);*/
+              
+            
+                    await DisplayAlert("alert", testuser.address, "OK");
+                }
+                catch (Exception ex) { Console.WriteLine(ex); }
             }
 
 

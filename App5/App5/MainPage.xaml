@@ -13,13 +13,13 @@
     <ScrollView>
         <AbsoluteLayout>
             <StackLayout>
-                <Label Text="Dota2" FontSize="30" BackgroundColor="#5858FA" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand"></Label>
+                <Label  Text="Dota2" FontSize="30" BackgroundColor="#5858FA" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand"></Label>
                 <ListView  x:Name="listView" HasUnevenRows="True" ItemSelected="listView_ItemSelected"  HorizontalOptions="FillAndExpand">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell >
                                 <StackLayout Orientation="Vertical">
-                                    <Label Text="{Binding Posttopic}"  HorizontalOptions="FillAndExpand" Font="Bold,16" />
+                                    <Label  x:Name="lblPost"   Text="{Binding Posttopic}"  HorizontalOptions="FillAndExpand" Font="Bold,16" />
                                     <StackLayout Orientation="Horizontal">
                                         <Label Text="{Binding Postdetail}" HorizontalOptions="FillAndExpand" TextColor="Gray" FontSize="10"/>
                                         <Label Text="{Binding Postid}"  HorizontalTextAlignment="End" TextColor="Gray" FontSize="10"/>

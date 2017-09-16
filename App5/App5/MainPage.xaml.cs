@@ -21,28 +21,34 @@ namespace App5
 		{
             
             InitializeComponent();
-            GetJsonList();
+            
+           category category = new category();
+      //    data = labletopic.Text;
+           GetJsonList();
+
+              
             //create the dinding data for thelistview
-            /*listView.ItemsSource = new List<Custom>
+           listView.ItemsSource = new List<Custom>
             {
                 new Custom
                 {
-               
+
                     Topic="LGD is the best team！",
                     time="post at: 2017-8-04",
                     author= "inobts"
                 },
                    new Custom
                 {
-                 
+
                     Topic="Dota2 is the best game ever",
                       time="post at: 2017-8-04",
                     author= "inobtsp"
                 },
 
-            };*/
-            //set the event handler for create button
-            var tgr = new TapGestureRecognizer { NumberOfTapsRequired = 1 };
+            };
+            
+          //set the event handler for create button
+          var tgr = new TapGestureRecognizer { NumberOfTapsRequired = 1 };
             tgr.TappedCallback = async (sender, args) =>
             {
                 await Navigation.PushAsync(new post());
@@ -63,10 +69,21 @@ namespace App5
         //set event handler for listview
         private async void listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            await Navigation.PushAsync(new detail());
+            try
+            {
+                string datauser = DependencyService.Get<ISaveAndLoad>().LoadText("temp.txt");
+                Console.WriteLine(datauser);
+                
+                postdata item = (postdata)((ListView)sender).SelectedItem;
+                ((ListView)sender).SelectedItem = null;
+                string itemtopic = item.Posttopic;
+                Console.WriteLine(item.Posttopic);
+                await Navigation.PushAsync(new detail(itemtopic));
+            }
+            catch(Exception exception) { Console.WriteLine(exception); }
         }
 
  
     }
-	}
+}
 
