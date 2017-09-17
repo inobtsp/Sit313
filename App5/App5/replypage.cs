@@ -135,12 +135,16 @@ namespace App5
             replybutton.Clicked += posted;
             async void posted(object sender, EventArgs e)
             {
-               
 
-                TimeSpan time = new TimeSpan();
+                DateTime dt = DateTime.Now.ToLocalTime();
+                DateTime date= dt.Date;
+           
                 string postids = id.ToString();
-
-                storetopic storereply = new storetopic(id, "" + detail.Text + "", "" + time + "", "monkey.jpg",""+postname+"");
+                string datauser = DependencyService.Get<ISaveAndLoad>().LoadText("temp.txt");
+               string[] testarray= datauser.Split(',');
+                string username = testarray[1];
+                Console.WriteLine(datauser);
+                storetopic storereply = new storetopic(id, "" + detail.Text + "", "" + date + "", "monkey.jpg",""+postname+"",""+username+"");
                 listreply.Add(storereply);
                 id+=1;
                // list.ForEach(Console.WriteLine);

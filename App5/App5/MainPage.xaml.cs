@@ -71,8 +71,7 @@ namespace App5
         {
             try
             {
-                string datauser = DependencyService.Get<ISaveAndLoad>().LoadText("temp.txt");
-                Console.WriteLine(datauser);
+               
                 
                 postdata item = (postdata)((ListView)sender).SelectedItem;
                 ((ListView)sender).SelectedItem = null;
