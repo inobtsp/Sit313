@@ -19,6 +19,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)post.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)postdata.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)replypage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)security.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)storetopic.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Custom.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)detail.xaml.cs">

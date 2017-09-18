@@ -13,11 +13,17 @@ namespace App5
         public string Posttopic { get; set; }
         public string Postdetail { get; set; }
         public int Postid { get; set; }
-        public postdata(int postid,string posttopic, string postdetail)
+        public string Belongstopic { get;set; }
+        public string Senduser { get; set; }
+
+        public postdata(int postid,string posttopic, string postdetail,string belongstopic,string senduser)
         {
             this.Postid = postid;
             this.Posttopic = posttopic;
             this.Postdetail = postdetail;
+            this.Belongstopic = belongstopic;
+            this.Senduser = senduser;
+                
         }
 
     }

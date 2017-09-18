@@ -9,10 +9,14 @@ using Xamarin.Forms;
 using System.Diagnostics;
 using Xamarin.Forms.Xaml;
 using Newtonsoft.Json;
+using System.Security.Cryptography;
 
 namespace App5
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
+   
+    
+
+ [XamlCompilation(XamlCompilationOptions.Compile)]
     public class storeuser
     {
         private static string url = "http://introtoapps.com/datastore.php?appid=215330413";
@@ -155,13 +159,14 @@ namespace App5
                 {
                     /*  storeuser testuser = new storeuser("dante", "deakin");
                       testuser.saveuser();*/
-                    /*  storeuser testuser = new storeuser("dante");
-                  await testuser.loaduser();
-                   string tested = testuser.password;
+                  /* storeuser testuser = new storeuser("dante");
+                  await testuser.loaduser();*/
+                   /*string tested = testuser.password;
                       await DisplayAlert("alert",testuser.password,"OK");*/
-
                     /*storeuser testuser = storeuser.CreatUserFromJson("{\"username\":\"" + username.Text + "\",\"password\":\"" + password.Text + "\"}");
                     testuser.saveuser();*/
+
+                    //if(username.Text==)
 
                     DependencyService.Get<ISaveAndLoad>().SaveText("temp.txt", username.Text + "," + password.Text);
                     
@@ -278,12 +283,24 @@ namespace App5
                 register2.Clicked += registersuccess;
                 //event handler fot regist button
                 async void registersuccess(object a, EventArgs b)
-                {
-                    Console.WriteLine("success regist");
-                    await Navigation.PushAsync(new login());
-                    storeuser testuser = storeuser.CreatUserFromJson("{\"username\":\"" + usernamer.Text + "\",\"password\":\"" + passwordr.Text + "\",\"address\":\"" + address.Text + "\",\"postcode\":\"" + postcode.Text + "\",\"logged\":\"" + loginornot + "\"}");
-                    testuser.saveuser();
-                    DisplayAlert("Register Success", "Welcome to inobtsp forum; your are Register success", "OK");
+                { try
+                    {
+                        Console.WriteLine("success regist");
+                        await Navigation.PushAsync(new login());
+
+                        security sec = new security();
+                        string passwordsecure = sec.SHA256hash(passwordr.Text);
+
+                        string inputvalue = "{\"username\":\"" + usernamer.Text + "\",\"password\":\"" + passwordsecure + "\",\"address曹尼玛\":\"" + address.Text + "\",\"postcode\":\"" + postcode.Text + "\",\"logged\":\"" + loginornot + "\"}";
+                      //  byte[]inputvalues= Encoding.ASCII .GetBytes(inputvalue);
+               
+
+                        storeuser testuser = storeuser.CreatUserFromJson(inputvalue);
+
+                        testuser.saveuser();
+                        DisplayAlert("Register Success", "Welcome to inobtsp forum; your are Register success", "OK");
+                    }
+                    catch (Exception ex) { Console.WriteLine(ex); }
                 }
 
             }

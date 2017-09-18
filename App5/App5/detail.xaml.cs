@@ -20,8 +20,8 @@ namespace App5
                 string result = await postlist.loadpost("http://introtoapps.com/datastore.php?appid=215330413&action=load&objectid=post");
                 Jsonconverter converter = new Jsonconverter();
                 string topic = replytopic.Text;
-                listView.ItemsSource = converter.List(result);
-
+               
+                listView.ItemsSource = converter.Listreply(result).Where(i => i.Belongpost.Contains(replytopic.Text));
             }
             catch (Exception ex) {Console.WriteLine(ex); }
         }
@@ -30,7 +30,7 @@ namespace App5
 		public detail(string data)
 		{
 			InitializeComponent ();
-           
+            GetJsonList();
                replytopic.Text = data;
             Console.WriteLine(replytopic.Text);
             //create binding data for listview

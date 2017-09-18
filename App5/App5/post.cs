@@ -17,7 +17,7 @@ namespace App5
 
         public string topic;
         public string detail;*/
-        post postclass = new post();
+ 
 
 
         public static storepost CreatUserFromJson(string json)
@@ -88,12 +88,12 @@ namespace App5
                 jsonString = WebUtility.UrlEncode(jsonString);
                 Jsonconverter jsonapi = new Jsonconverter();
         
-                post postinput = new post();
+              //  post postinput = new post();
                 
             //    postdata topic = new postdata(""+postinput.FindByName<Entry>(postinput.c.Text+"",""+ postinput.FindByName<Editor>(detail).Text+"");
 
                 List<postdata> lists = new List<postdata>();
-                lists = postinput.List;
+                lists = post.list;
                // lists.Add(topic);
         
              String jason = jsonapi.ListToJason(lists);
@@ -219,7 +219,7 @@ namespace App5
             get { return list; }
         }
         int id = 1;
-        public post()
+        public post(string data)
         {
              
 
@@ -239,13 +239,15 @@ namespace App5
                 {
                 
                     string postids = id.ToString();
-                   
-                   /* Jsonconverter jsonapi = new Jsonconverter();*/
 
-                  // for(int i; i < list.Count; i++) { 
+                /* Jsonconverter jsonapi = new Jsonconverter();*/
 
-                     postdata postdata = new postdata(id,""+topic.Text+"",""+detail.Text+"");
-                     list.Add(postdata);
+                // for(int i; i < list.Count; i++) { 
+                string datauser = DependencyService.Get<ISaveAndLoad>().LoadText("temp.txt");
+                string[] testarray = datauser.Split(',');
+                string username = testarray[1];
+                postdata postdata = new postdata(id,""+topic.Text+"",""+detail.Text+"",""+data+"",""+username+"");
+                list.Add(postdata);
                 id++;
                 list.ForEach(Console.WriteLine);
 
@@ -259,7 +261,7 @@ namespace App5
                    storepost testpost = storepost.CreatUserFromJson("{\"postid\":\"" + postids + "\",\"topic\":\"" + topic.Text + "\",\"detail\":\"" + detail.Text +"\"}");
                     testpost.savepost();
                     DisplayAlert("Success!", "" + topic.Text + "", "" + detail.Text + "", "OK");
-                    await Navigation.PushAsync(new MainPage());
+                    await Navigation.PushAsync(new MainPage(data));
                 }
             
         }

@@ -13,7 +13,8 @@
     <ScrollView>
         <AbsoluteLayout>
             <StackLayout>
-                <Label  Text="Dota2" FontSize="30" BackgroundColor="#5858FA" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand"></Label>
+                <SearchBar x:Name="searchbar" Placeholder="Search from here" TextChanged="SearchBar_OnTextChanged" ></SearchBar>
+                <Label  x:Name="topicname" FontSize="30" BackgroundColor="#5858FA" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand"></Label>
                 <ListView  x:Name="listView" HasUnevenRows="True" ItemSelected="listView_ItemSelected"  HorizontalOptions="FillAndExpand">
                     <ListView.ItemTemplate>
                         <DataTemplate>

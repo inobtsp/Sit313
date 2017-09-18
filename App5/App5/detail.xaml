@@ -19,17 +19,17 @@
                             <StackLayout Orientation="Vertical">
        
                                     <StackLayout Orientation="Horizontal" BackgroundColor="#2E64FE">
-                                <Image Source="{Binding icon}" WidthRequest="35" HeightRequest="35"></Image>
+                                        <Image Source="{Binding Replyimage}" WidthRequest="35" HeightRequest="35"></Image>
                                         <StackLayout Orientation="Vertical" >
-                                    <Label Text="{Binding author}" Font="Bold,20"></Label>
+                                            <Label Text="{Binding Replyname}" Font="Bold,20"></Label>
                                     <Label Text="{Binding level}" Font="12"></Label>
                                 </StackLayout>
                             </StackLayout>
-                             
-                                <Label Text="{Binding detail}" HorizontalTextAlignment="Start" Font="15"></Label>
-                                <Image Source="{Binding image}" HorizontalOptions="Start" HeightRequest="75" WidthRequest="75"/>
+
+                                    <Label Text="{Binding Replytopic}" HorizontalTextAlignment="Start" Font="15"></Label>
+                                    <Image Source="{Binding Replyimage}" HorizontalOptions="Start" HeightRequest="75" WidthRequest="75"/>
                                 <Image Source="{Binding image1}" HorizontalOptions="Start" HeightRequest="75" WidthRequest="75"/>
-                                <Label Text="{Binding time}" TextColor="Gray" HorizontalTextAlignment="End" FontSize="10"></Label>
+                                    <Label Text="{Binding Replytime}" TextColor="Gray" HorizontalTextAlignment="End" FontSize="10"></Label>
                              
                             </StackLayout>
                         </ViewCell>

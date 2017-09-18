@@ -10,6 +10,7 @@ using Xamarin.Forms;
 
 namespace App5
 {
+
     public class storereply
     {
         private static string url = "http://introtoapps.com/datastore.php?appid=215330413";

@@ -7,56 +7,51 @@ using Xamarin.Forms;
 
 namespace App5
 {
-	public partial class MainPage : ContentPage
-	{
+    public partial class MainPage : ContentPage
+    {
         public async void GetJsonList()
-            {
+        {
             storepost postlist = new storepost();
-           
-                string result = await postlist.loadpost("http://introtoapps.com/datastore.php?appid=215330413&action=load&objectid=wow.topic");
-               Jsonconverter converter = new Jsonconverter();
-                listView.ItemsSource = converter.List(result);
-            }
-		public MainPage()
-		{
-            
-            InitializeComponent();
-            
-           category category = new category();
-      //    data = labletopic.Text;
-           GetJsonList();
 
-              
+            string result = await postlist.loadpost("http://introtoapps.com/datastore.php?appid=215330413&action=load&objectid=wow.topic");
+            Jsonconverter converter = new Jsonconverter();
+            listView.ItemsSource = converter.List(result);
+        }
+        public MainPage(string data)
+        {
+
+            InitializeComponent();
+            topicname.Text = data;
+            GetJsonList();
             //create the dinding data for thelistview
-           listView.ItemsSource = new List<Custom>
+            /*listView.ItemsSource = new List<Custom>
             {
                 new Custom
                 {
-
+               
                     Topic="LGD is the best team！",
                     time="post at: 2017-8-04",
                     author= "inobts"
                 },
                    new Custom
                 {
-
+                 
                     Topic="Dota2 is the best game ever",
                       time="post at: 2017-8-04",
                     author= "inobtsp"
                 },
 
-            };
-            
-          //set the event handler for create button
-          var tgr = new TapGestureRecognizer { NumberOfTapsRequired = 1 };
+            };*/
+            //set the event handler for create button
+            var tgr = new TapGestureRecognizer { NumberOfTapsRequired = 1 };
             tgr.TappedCallback = async (sender, args) =>
             {
-                await Navigation.PushAsync(new post());
+                await Navigation.PushAsync(new post(data));
             };
-           post.GestureRecognizers.Add(tgr);
+            post.GestureRecognizers.Add(tgr);
         }
         //set event handler for menu item
-                private async void gotologin (object sender, EventArgs e)
+        private async void gotologin(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new login());
         }
@@ -67,22 +62,36 @@ namespace App5
         }
 
         //set event handler for listview
-        private async void listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            try
-            {
-               
-                
-                postdata item = (postdata)((ListView)sender).SelectedItem;
-                ((ListView)sender).SelectedItem = null;
-                string itemtopic = item.Posttopic;
-                Console.WriteLine(item.Posttopic);
-                await Navigation.PushAsync(new detail(itemtopic));
-            }
-            catch(Exception exception) { Console.WriteLine(exception); }
+         private async void listView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+           {
+               try
+               {
+
+
+                   postdata item = (postdata)((ListView)sender).SelectedItem;
+                   ((ListView)sender).SelectedItem = null;
+                   string itemtopic = item.Posttopic;
+                   Console.WriteLine(item.Posttopic);
+                   await Navigation.PushAsync(new detail(itemtopic));
+               }
+               catch(Exception exception) { Console.WriteLine(exception); }
         }
 
- 
+
+         private async void SearchBar_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+           listView.BeginRefresh();
+
+            var keyword = searchbar.Text;
+            storepost postlist = new storepost();
+
+            string result = await postlist.loadpost("http://introtoapps.com/datastore.php?appid=215330413&action=load&objectid=wow.topic");
+            Jsonconverter converter = new Jsonconverter();
+          
+            listView.ItemsSource = converter.List(result).Where(i => i.Posttopic.Contains(keyword));
+
+            listView.EndRefresh();
+        }
     }
 }
 
