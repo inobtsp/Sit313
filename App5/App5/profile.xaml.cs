@@ -97,8 +97,9 @@ namespace App5
             {
                 //clean the local storage when user log out
                 Jsonconverter jsonapi = new Jsonconverter();
-                DependencyService.Get<ISaveAndLoad>().SaveText("temp.json", jsonapi.ToJasonstring(""));
-                DependencyService.Get<ISaveAndLoad>().SaveText("signiture.json", jsonapi.ToJasonstring(""));
+                string userlogin = null;
+                DependencyService.Get<ISaveAndLoad>().SaveText("temp.json", jsonapi.ToJasonstring(userlogin));
+                DependencyService.Get<ISaveAndLoad>().SaveText("signiture.json", jsonapi.ToJasonstring(userlogin));
                 await Navigation.PushAsync(new category());
 
             }

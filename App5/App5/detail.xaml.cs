@@ -21,7 +21,7 @@ namespace App5
                 //display list
                 storereply postlist = new storereply();
 
-                string result = await postlist.loadpost("http://introtoapps.com/datastore.php?appid=215330413&action=load&objectid=post");
+                string result = await postlist.loadreply("http://introtoapps.com/datastore.php?appid=215330413&action=load&objectid=post");
                 Jsonconverter converter = new Jsonconverter();
                 string topic = replytopic.Text;
                
