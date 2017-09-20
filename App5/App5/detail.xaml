@@ -22,7 +22,7 @@
                                         <Image Source="{Binding Replyimage}" WidthRequest="35" HeightRequest="35"></Image>
                                         <StackLayout Orientation="Vertical" >
                                             <Label Text="{Binding Replyname}" Font="Bold,20"></Label>
-                                    <Label Text="{Binding level}" Font="12"></Label>
+                                            <Label x:Name="lblfooter" Text="{Binding Replynamefooter}" Font="10"></Label>
                                 </StackLayout>
                             </StackLayout>
 

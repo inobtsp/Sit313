@@ -13,7 +13,8 @@ namespace App5
         public string Belongpost { get; set; }
         public int Replyid { get; set; }
         public string Replyname { get; set; }
-        public storetopic(int replyid, string replytopic, string replytime,string replyimage,string belongpost ,string replyname)
+        public string Replynamefooter { get; set; }
+        public storetopic(int replyid, string replytopic, string replytime,string replyimage,string belongpost ,string replyname,string replynamefooter)
         {
             this.Replyid= replyid;
             this.Replytopic = replytopic;
@@ -21,6 +22,7 @@ namespace App5
             this.Replyimage = replyimage;
             this.Belongpost = belongpost;
             this.Replyname = replyname;
+            this.Replynamefooter = replynamefooter;
         }
         public storetopic()
         {

@@ -17,6 +17,7 @@ namespace App5
     
 
  [XamlCompilation(XamlCompilationOptions.Compile)]
+ // function for webrequest and json convert to store and load dat for the netwoirk storage and convert between json and string
     public class storeuser
     {
         private static string url = "http://introtoapps.com/datastore.php?appid=215330413";
@@ -25,12 +26,13 @@ namespace App5
         public string address;
         public string postcode;
         bool loginornot = false;
-
+        //convert json to string
         public static storeuser CreatUserFromJson(string json)
         {
             storeuser user = JsonConvert.DeserializeObject<storeuser>(json);
             return user;
         }
+        //initialize the class and parameter
         public storeuser()
         {
         }
@@ -40,6 +42,7 @@ namespace App5
 
 
         }
+        
         public storeuser(string username, string password, string address,string postcode,bool loginornot)
         {
             this.username = username;
@@ -48,11 +51,12 @@ namespace App5
             this.postcode = postcode;
             this.loginornot = loginornot;
         }
+        //convert string to json
         public string ToJsonString()
         {
             return JsonConvert.SerializeObject(this);
         }
-
+        //function for web request
         public static async Task<string> getServerResponse(HttpWebRequest request)
         {
             string result = "";
@@ -73,6 +77,7 @@ namespace App5
             }
             return result;
         }
+        // load user from network
         public static async Task<storeuser> loaduser(string username)
         {
             try
@@ -92,6 +97,7 @@ namespace App5
             }
 
         }
+        //save user in to the network storage
         public async void saveuser()
         {
             try
@@ -110,134 +116,104 @@ namespace App5
                 Console.WriteLine(e);
             }
         }
-        public async void appenduser()
-        {
-            try
-            {
-                string jsonString = this.ToJsonString();
-                jsonString = WebUtility.UrlEncode(jsonString);
-                string actualurl = url + "&action=append&objectid=" + this.username + ".user" + "&data=" + jsonString;
-                Uri uri = new Uri(actualurl);
-                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
-
-                request.Method = "GET";
-                string result = await getServerResponse(request);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-        }
+      
     }
 
     public partial class login : ContentPage
     {
-        public login()
+       
+            public login()
         {
-            bool loginornot = false;
-            //define property for loginpage and adding them into layout
-            var scroll = new ScrollView { };
-            var layout = new StackLayout { Padding = new Thickness(5, 20) };
-            this.Content = layout;
-            var labelusername = new Label { Text = "username", TextColor = Color.FromHex("#5858FA"), FontSize = 12 }; layout.Children.Add(labelusername);
-            var username = new Entry { Placeholder = "", ClassId = "loginusername" }; layout.Children.Add(username);
-            var labelpassword = new Label { Text = "password", TextColor = Color.FromHex("#5858FA"), FontSize = 12 }; layout.Children.Add(labelpassword);
-            var password = new Entry { IsPassword = true, ClassId = "loginpassword" }; layout.Children.Add(password);
-            var forgetlable = new Label { FontSize = 10, TextColor = Color.Blue }; layout.Children.Add(forgetlable);
-            var loginbutton = new Button { Text = "Click here to log in", BackgroundColor = Color.FromHex("#5858FA"), TextColor = Color.White }; layout.Children.Add(loginbutton);
-            var registerbutton = new Button { Text = "NO Account? Register here!", BackgroundColor = Color.FromHex("#5858FA"), TextColor = Color.White }; layout.Children.Add(registerbutton);
 
+            //create toolbaritem
+            var Item1 = new ToolbarItem
+            {
+                Text = "Item 1",
+                Icon = "person.png"
 
+            };
+            var Item2 = new ToolbarItem
+            {
+                Text = "See more Topic",
+             
+
+            };
+            //set event for each item bar
+            this.ToolbarItems.Add(Item1);
+            this.ToolbarItems.Add(Item2);
+            Item1.Activated += gotologin;
+            Item2.Activated += gotocategory;
+            async void gotologin(object a, EventArgs b)
+            {
+                //load username from local file
+                string datasigniture = DependencyService.Get<ISaveAndLoad>().LoadText("temp.json");
+                Jsonconverter jsonconverter = new Jsonconverter();
+                string usersfooter = jsonconverter.ToObjectstring(datasigniture);
+                //check whether user is login and lead to different page
+                if (usersfooter != null)
+                {
+                    await Navigation.PushAsync(new profile());
+                }
+                else
+                {
+                    await Navigation.PushAsync(new login());
+                }
+            }
+            //set event handler for another menu item
+            async void gotocategory(object sender, EventArgs e)
+            {
+                await Navigation.PushAsync(new category());
+            }
+
+            bool loginornot=false;
+                //define property for loginpage and adding them into layout
+                var scroll = new ScrollView { };
+                var layout = new StackLayout { Padding = new Thickness(5, 20) };
+                this.Content = layout;
+                var labelusername = new Label { Text = "username", TextColor = Color.FromHex("#5858FA"), FontSize = 12 }; layout.Children.Add(labelusername);
+                var username = new Entry { Placeholder = "", ClassId = "loginusername" }; layout.Children.Add(username);
+                var labelpassword = new Label { Text = "password", TextColor = Color.FromHex("#5858FA"), FontSize = 12 }; layout.Children.Add(labelpassword);
+                var password = new Entry { IsPassword = true, ClassId = "loginpassword" }; layout.Children.Add(password);
+                var forgetlable = new Label { FontSize = 10, TextColor = Color.Blue }; layout.Children.Add(forgetlable);
+                var loginbutton = new Button { Text = "Click here to log in", BackgroundColor = Color.FromHex("#5858FA"), TextColor = Color.White }; layout.Children.Add(loginbutton);
+                var registerbutton = new Button { Text = "NO Account? Register here!", BackgroundColor = Color.FromHex("#5858FA"), TextColor = Color.White }; layout.Children.Add(registerbutton);
+
+            
 
             Content = new ScrollView { Content = layout };
             //goto profile page
             loginbutton.Clicked += logged;
             async void logged(object sender, EventArgs e)
             {
-                // StreamWriter sw = new StreamWriter("db.txt");
+                
                 try
                 {
-                    /*  storeuser testuser = new storeuser("dante", "deakin");
-                      testuser.saveuser();*/
-                  /* storeuser testuser = new storeuser("dante");
-                  await testuser.loaduser();*/
-                   /*string tested = testuser.password;
-                      await DisplayAlert("alert",testuser.password,"OK");*/
-                    /*storeuser testuser = storeuser.CreatUserFromJson("{\"username\":\"" + username.Text + "\",\"password\":\"" + password.Text + "\"}");
-                    testuser.saveuser();*/
-
-                    //if(username.Text==)
-
-                    DependencyService.Get<ISaveAndLoad>().SaveText("temp.txt", username.Text + "," + password.Text);
-                    
+                    // set the data input and store it to the network
                     storeuser testuser = await storeuser.loaduser("" + username.Text + "");
-                   /* var fileService = DependencyService.Get<ISaveAndLoad>();
-                    await fileService.SaveText("db.txt", username.Text + "/n" + password.Text);*/
-              
+                    //changing password in sha256 hash code
+                    security sec = new security();
+                    //check user login input correct or not
+                    if (username.Text == testuser.username && sec.SHA256hash(password.Text) == testuser.password)
+                    {
+                        Jsonconverter jsonapi = new Jsonconverter();
+                        string loggeduser = username.Text + "," + password.Text;
+                        Console.WriteLine(loggeduser);
+                        DependencyService.Get<ISaveAndLoad>().SaveText("temp.json", jsonapi.ToJasonstring(loggeduser));
+
+                       await  DisplayAlert("Login Success", "Welcome  "+ testuser.username + " your are login success", "OK");
+                        await Navigation.PushAsync(new profile());
+                     
+                    }
+                    else
+                    {
+                        await DisplayAlert("alert", "your password is wrong", "OK");
+                    }
             
-                    await DisplayAlert("alert", testuser.address, "OK");
+                    
                 }
                 catch (Exception ex) { Console.WriteLine(ex); }
             }
 
-
-
-
-            //reset the page
-            /* DisplayAlert("Login Success", "Welcome to inobtsp forum; your are login success", "OK");
-             layout.Children.Remove(labelusername);
-             layout.Children.Remove(username);
-             layout.Children.Remove(labelpassword);
-             layout.Children.Remove(password);
-             layout.Children.Remove(forgetlable);
-             layout.Children.Remove(loginbutton);
-             layout.Children.Remove(registerbutton);
-             //define the page for profile
-             var layout3 = new StackLayout { Padding = new Thickness(5, 20)  };
-             var layoutuppload = new StackLayout { Padding = new Thickness(5, 20), Orientation = StackOrientation.Horizontal };
-             this.Content = layout3;
-             var Labletitle = new Label { Text = "Edit your information", FontSize = 30 };
-             var labeladdress = new Label { Text = "Address", TextColor = Color.FromHex("#5858FA"), FontSize = 12 };
-             var labelconfirmenewpass = new Label { Text = "Confirme you password", TextColor = Color.FromHex("#5858FA"), FontSize = 12 };
-             var labelpostcode = new Label { Text = "Postcode", TextColor = Color.FromHex("#5858FA"), FontSize = 12 };
-             var labeloldpass = new Label { Text = "Enter your old password", TextColor = Color.FromHex("#5858FA"), FontSize = 12 };
-             var labelnewpass = new Label { Text = "Enter your new password", TextColor = Color.FromHex("#5858FA"), FontSize = 12 };
-             var Edit = new Button { Text = "Confirme Change" , BackgroundColor = Color.FromHex("#5858FA"), TextColor = Color.White };
-             var upload = new Button { Text = "Upload to change your head portrait ",HeightRequest = 5, HorizontalOptions= LayoutOptions.EndAndExpand};
-             var head = new Image {HeightRequest=75 ,WidthRequest=75, Source = "monkey.jpg" };
-             var confirmenewpass = new Entry { IsPassword = true };
-             var address = new Entry { };
-             var oldpass = new Entry { };
-             var newpass = new Entry { };
-             var postcode = new Entry { };
-             //adding properties into the page
-             Content = new ScrollView { Content = layout3 };
-             layoutuppload.Children.Add(head);
-             layoutuppload.Children.Add(upload);
-             layout3.Children.Add(layoutuppload);
-             layout3.Children.Add(Labletitle);
-             layout3.Children.Add(labelusername);
-             layout3.Children.Add(username);
-             layout3.Children.Add(labeloldpass);
-             layout3.Children.Add(oldpass);
-             layout3.Children.Add(labelnewpass);
-             layout3.Children.Add(newpass);
-             layout3.Children.Add(labelconfirmenewpass);
-             layout3.Children.Add(confirmenewpass);
-             layout3.Children.Add(labeladdress);
-             layout3.Children.Add(address);
-             layout3.Children.Add(labelpostcode);
-             layout3.Children.Add(postcode);
-             layout3.Children.Add(Edit);
-             Edit.Clicked += confirmechange;
-             //event handler when people done their editing
-             async void confirmechange(object a, EventArgs b)
-             {
-                 Console.WriteLine("success change");
-                 await Navigation.PushAsync(new MainPage());
-                 DisplayAlert("Change Success", "You are successfully change your information", "OK");
-             }
-         }*/
             registerbutton.Clicked += register;
             //go to register page in 
             void register(object sender, EventArgs e)
@@ -287,16 +263,13 @@ namespace App5
                     {
                         Console.WriteLine("success regist");
                         await Navigation.PushAsync(new login());
-
+                        //change user registe password into sha256 formate and store in to the network
                         security sec = new security();
                         string passwordsecure = sec.SHA256hash(passwordr.Text);
 
-                        string inputvalue = "{\"username\":\"" + usernamer.Text + "\",\"password\":\"" + passwordsecure + "\",\"address曹尼玛\":\"" + address.Text + "\",\"postcode\":\"" + postcode.Text + "\",\"logged\":\"" + loginornot + "\"}";
-                      //  byte[]inputvalues= Encoding.ASCII .GetBytes(inputvalue);
-               
-
+                        string inputvalue = "{\"username\":\"" + usernamer.Text + "\",\"password\":\"" + passwordsecure + "\",\"address\":\"" + address.Text + "\",\"postcode\":\"" + postcode.Text + "\",\"logged\":\"" + loginornot + "\"}";              
                         storeuser testuser = storeuser.CreatUserFromJson(inputvalue);
-
+                        //store user into network
                         testuser.saveuser();
                         DisplayAlert("Register Success", "Welcome to inobtsp forum; your are Register success", "OK");
                     }

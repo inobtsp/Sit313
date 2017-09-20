@@ -9,8 +9,7 @@ namespace App5
 {
 	public class category : ContentPage
 	{
-        string[] topictext;
-        public category()
+      public category()
         {
             //create toolbaritem
             var Item1 = new ToolbarItem
@@ -20,96 +19,104 @@ namespace App5
 
             };
             this.ToolbarItems.Add(Item1);
-            Item1.Activated += gotologin;
+            Item1.Clicked += gotologin;
+            //set click event to navigate page
             async void gotologin(object a, EventArgs b)
             {
-                Console.WriteLine("success got login");
-                await Navigation.PushAsync(new login());
+                //append user footer
+                string datasigniture = DependencyService.Get<ISaveAndLoad>().LoadText("temp.json");
+                Jsonconverter jsonconverter = new Jsonconverter();
+                string usersfooter = jsonconverter.ToObjectstring(datasigniture);
+                if (usersfooter != null)
+                {
+                    await Navigation.PushAsync(new profile());
+                }
+                else
+                {
+                    await Navigation.PushAsync(new login());
+                }
             }
-            //create grid  set column and row definition to the grid
+           
 
             //Set the title for topic page
             Title = "Topics";
-            //Background colour
-            BackgroundColor = Color.FromHex("#fcf0cd");
+            //set the background of not use space
+            BackgroundColor = Color.Gray;
 
-            // Head for hot topic label
+            // hot topic label
             Label hot = new Label
             {
                 Text = "What's hot",
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.Start,
-                BackgroundColor = Color.FromHex("#fc7865"),
+                BackgroundColor = Color.FromHex("#8181F7"),
                 TextColor = Color.White,
                 FontAttributes = FontAttributes.Bold
             };
 
-            // Head for other topic label
+            // other topic label
             Label other = new Label
             {
 
 
-                Text = "Otherss",
+                Text = "Others",
                 HorizontalOptions = LayoutOptions.FillAndExpand,
                 VerticalOptions = LayoutOptions.Start,
-                BackgroundColor = Color.FromHex("#a6fe73"),
+                BackgroundColor = Color.FromHex("#8181F7"),
                 TextColor = Color.White,
                 FontAttributes = FontAttributes.Bold
             };
 
 
-            // Zelda button
+            // Create frames 
             var dota2 = new Frame
             {
                 OutlineColor = Color.Accent,
-                BackgroundColor = Color.FromHex("#6efa8e"),
+                BackgroundColor = Color.FromHex("#5858FA"),
                 HorizontalOptions = LayoutOptions.End,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 Content = new Label
                 {
-                    Text = "dota2",
-                    FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label))
+                    Text = "Dota2",
+                    FontSize = 12
 
                 }
                
             };
 
 
-            //LOL button
             var wow = new Frame
             {
                 OutlineColor = Color.Accent,
-                BackgroundColor = Color.FromHex("#6efa8e"),
+                BackgroundColor = Color.FromHex("#5858FA"),
                 HorizontalOptions = LayoutOptions.Start,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 Content = new Label
                 {
                     Text = "World of Warcraft",
-                    FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label))
+                    FontSize =13
                 }
 
             };
 
-            // WOW button 
             var lol = new Frame
             {
                 OutlineColor = Color.Accent,
-                BackgroundColor = Color.FromHex("#6efa8e"),
+                BackgroundColor = Color.FromHex("#5858FA"),
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 Content = new Label
                 {
                     Text = "Legend of league",
-                    FontSize = Device.GetNamedSize(NamedSize.Medium, typeof(Label))
+                    FontSize = 13
                 }
 
             };
 
-            // Others topic button
             var heartstone = new Frame
             {
                 OutlineColor = Color.Accent,
-                BackgroundColor = Color.FromHex("#6efa8e"),
+                BackgroundColor = Color.FromHex("#5858FA"),
                 HorizontalOptions = LayoutOptions.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 Content = new Label
@@ -120,7 +127,7 @@ namespace App5
 
             };
 
-            //Create frame for hot topics
+            //add frames in to the hot topic header
             Frame containerhot = new Frame
             {
                 BackgroundColor = Color.FromHex("#f8f8f8"),
@@ -137,7 +144,7 @@ namespace App5
                 }
             };
 
-            //Create frame for other topics
+            //add frames into other topic header
             Frame containerother = new Frame
             {
                 BackgroundColor = Color.FromHex("#f8f8f8"),
@@ -178,52 +185,29 @@ namespace App5
             heartstone.GestureRecognizers.Add(hstap);
            hstap.Tapped += hshasTapped;
 
-
-            /* //Click lol
-             lol.GestureRecognizers.Add(tapGestureRecognizer);
-             //Click wow
-             wow.GestureRecognizers.Add(tapGestureRecognizer);
-             //Click others
-             heartstone.GestureRecognizers.Add(tapGestureRecognizer);*/
-
-
         }
 
         //frame clicked 
 		void dota2hasTapped(object sender, EventArgs args)
 		{
-            // Navigate to forum page
+            
             Navigation.PushAsync(new MainPage("Dota2"));
 		}
         void wowhasTapped(object sender, EventArgs args)
         {
-            // Navigate to forum page
+           
             Navigation.PushAsync(new MainPage("World Of Warcraft"));
         }
         void hshasTapped(object sender, EventArgs args)
         {
-            // Navigate to forum page
+            
             Navigation.PushAsync(new MainPage("HeartStone"));
         }
         void lolhasTapped(object sender, EventArgs args)
         {
-            // Navigate to forum page
+            
             Navigation.PushAsync(new MainPage("Legend of League"));
         }
-        //event handler for the grid
-        /* var tgr = new TapGestureRecognizer { NumberOfTapsRequired = 1 };
-         tgr.TappedCallback = async (sender, args) =>
-         {
-
-                 //Label thebutton = (Label)sender;
-
-                 await Navigation.PushAsync(new MainPage());
-         };
-         grid.GestureRecognizers.Add(tgr);
-         // Accomodate Phone status bar.
-         this.Padding = new Thickness(10, Device.OnPlatform(20, 0, 0), 10, 5);
-
-         // Build the page.
-         this.Content = grid;*/
+       
     }
     }  

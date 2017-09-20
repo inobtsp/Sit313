@@ -13,11 +13,19 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)category.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)history.xaml.cs">
+      <DependentUpon>history.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ISaveAndLoad.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Jasonconverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)logpage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)post.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)postdata.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)profile.xaml.cs">
+      <DependentUpon>profile.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)replypage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)security.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)storetopic.cs" />
@@ -54,5 +62,17 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)profile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)history.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

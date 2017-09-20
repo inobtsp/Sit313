@@ -12,9 +12,13 @@ namespace App5
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class detail : ContentPage
 	{
+        //load list from networl and set binding for the reply
         public async void GetJsonList()
-        {try
+        {
+            try
             {
+
+                //display list
                 storereply postlist = new storereply();
 
                 string result = await postlist.loadpost("http://introtoapps.com/datastore.php?appid=215330413&action=load&objectid=post");
@@ -30,36 +34,16 @@ namespace App5
 		public detail(string data)
 		{
 			InitializeComponent ();
+            //set the listview binding
             GetJsonList();
-               replytopic.Text = data;
+
+     
+      
+            // set the passing data and change the text of the lable
+            replytopic.Text = data;
             Console.WriteLine(replytopic.Text);
-            //create binding data for listview
-       /* listView.ItemsSource = new List<Custom>
-            {
-                new Custom
-                {
-                    icon="monkey.jpg",
-                     detail="LGD will win this TI",
-                    author= "inobts",
-                    time ="2017-6-7 6:00pm",
-                    level = "lv17",
-                    image="monkey.jpg",
-                    image1="monkey.jpg"
-
-                },
-                   new Custom
-                {
-                     icon="monkey.jpg",       
-                    detail="You damn right bro!",
-                    author= "inobtsp",
-                     time ="2017-6-16 6:00pm",
-                    level = "lv1",
-                    image="monkey.jpg"
-                },
-
-            };*/
-           
-            //set event handler for image button
+     
+       //set event handler for image add button
             var tgr = new TapGestureRecognizer { NumberOfTapsRequired = 1 };
             tgr.TappedCallback = async (sender, args) =>
             {  

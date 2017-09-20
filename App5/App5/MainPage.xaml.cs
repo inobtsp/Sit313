@@ -9,13 +9,14 @@ namespace App5
 {
     public partial class MainPage : ContentPage
     {
+  //load list of post from network and set binding for the reply
         public async void GetJsonList()
         {
             storepost postlist = new storepost();
 
             string result = await postlist.loadpost("http://introtoapps.com/datastore.php?appid=215330413&action=load&objectid=wow.topic");
             Jsonconverter converter = new Jsonconverter();
-            listView.ItemsSource = converter.List(result);
+            listView.ItemsSource = converter.List(result).Where(i => i.Belongstopic.Contains(topicname.Text));
         }
         public MainPage(string data)
         {
@@ -23,25 +24,7 @@ namespace App5
             InitializeComponent();
             topicname.Text = data;
             GetJsonList();
-            //create the dinding data for thelistview
-            /*listView.ItemsSource = new List<Custom>
-            {
-                new Custom
-                {
-               
-                    Topic="LGD is the best team！",
-                    time="post at: 2017-8-04",
-                    author= "inobts"
-                },
-                   new Custom
-                {
-                 
-                    Topic="Dota2 is the best game ever",
-                      time="post at: 2017-8-04",
-                    author= "inobtsp"
-                },
-
-            };*/
+ 
             //set the event handler for create button
             var tgr = new TapGestureRecognizer { NumberOfTapsRequired = 1 };
             tgr.TappedCallback = async (sender, args) =>
@@ -53,7 +36,18 @@ namespace App5
         //set event handler for menu item
         private async void gotologin(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new login());
+            //check whether user has login and lead to different page
+            string datasigniture = DependencyService.Get<ISaveAndLoad>().LoadText("temp.json");
+            Jsonconverter jsonconverter = new Jsonconverter();
+            string usersfooter = jsonconverter.ToObjectstring(datasigniture);
+            if (usersfooter != null)
+            {
+                await Navigation.PushAsync(new profile());
+            }
+            else
+            {
+                await Navigation.PushAsync(new login());
+            }
         }
         //set event handler for another menu item
         private async void gotocategory(object sender, EventArgs e)
@@ -67,7 +61,7 @@ namespace App5
                try
                {
 
-
+                //retreive the post topic of the user click item in the list view
                    postdata item = (postdata)((ListView)sender).SelectedItem;
                    ((ListView)sender).SelectedItem = null;
                    string itemtopic = item.Posttopic;
@@ -77,19 +71,21 @@ namespace App5
                catch(Exception exception) { Console.WriteLine(exception); }
         }
 
-
+        //search bar 
          private async void SearchBar_OnTextChanged(object sender, TextChangedEventArgs e)
         {
+            //referesh the list
            listView.BeginRefresh();
 
             var keyword = searchbar.Text;
+            //retreive all post in ther list
             storepost postlist = new storepost();
 
             string result = await postlist.loadpost("http://introtoapps.com/datastore.php?appid=215330413&action=load&objectid=wow.topic");
             Jsonconverter converter = new Jsonconverter();
-          
+          // display the item that contains keyword
             listView.ItemsSource = converter.List(result).Where(i => i.Posttopic.Contains(keyword));
-
+            //referesh the list
             listView.EndRefresh();
         }
     }

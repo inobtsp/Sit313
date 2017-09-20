@@ -14,27 +14,12 @@ namespace App5
     public class storereply
     {
         private static string url = "http://introtoapps.com/datastore.php?appid=215330413";
-        /* public string topicid;
-
-         public string topic;
-         public string detail;*/
-
-
-
-        /*public static storereply CreatUserFromJson(string json)
-        {
-            storereply post = JsonConvert.DeserializeObject<storereply>(json);
-            return post;
-        }*/
+        //inistailixze the class
         public storereply()
         {
         }
 
-        /*  public string ToJsonString()
-          {
-              return JsonConvert.SerializeObject(this);
-          }*/
-
+        //function for web request
         public static async Task<string> getServerResponse(WebRequest request)
         {
             string result = "";
@@ -55,7 +40,8 @@ namespace App5
             }
             return result;
         }
-        public async Task<String> loadpost(string url)
+         //function to load reply 
+        public async Task<String> loadreply(string url)
         {
             string result = "";
             try
@@ -65,14 +51,7 @@ namespace App5
                 WebRequest request = WebRequest.Create(uri);
                 request.Method = "Get";
                 result = await getServerResponse(request);
-                /*
-                string actualurl = url + "&action=load&objectid=" + username + ".user";
-                Uri uri = new Uri(actualurl);
-                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(uri);
-                // request.ContentType = "application/json";
-                request.Method = "GET";
-                string result = await getServerResponse(request);
-                return CreatUserFromJson(result);*/
+      
             }
             catch (Exception e)
             {
@@ -81,19 +60,16 @@ namespace App5
             }
             return result;
         }
+        //function to save reply
         public async void savereply()
         {
             try
             {
-
+                // create a list and make it equalts to the list in the content page 
                 Jsonconverter jsonapi = new Jsonconverter();
-
-
-
-                //    postdata topic = new postdata(""+postinput.FindByName<Entry>(postinput.c.Text+"",""+ postinput.FindByName<Editor>(detail).Text+"");
-
                 List<storetopic> lists = new List<storetopic>();
                  lists = replypage.listreply;
+                //convert list in to json
                 String jason = jsonapi.ListToJasonreply(lists);
                 Console.WriteLine(jason);
                 replypage reply = new replypage("");
@@ -117,6 +93,7 @@ namespace App5
       class replypage : ContentPage
 	{
         int id = 111111;
+        //reply list object in content page
         public static List<storetopic> listreply = new List<storetopic>();
         public List<storetopic> Listreply
         {
@@ -137,33 +114,32 @@ namespace App5
             async void posted(object sender, EventArgs e)
             {
 
+                //append user footer
+                string datasigniture = DependencyService.Get<ISaveAndLoad>().LoadText("signiture.json");
+                Jsonconverter jsonconverter = new Jsonconverter();
+                string usersfooter = jsonconverter.ToObjectstring(datasigniture);
+                //set date 
                 DateTime dt = DateTime.Now.ToLocalTime();
                 DateTime date= dt.Date;
-           
+           //retreive logged username from local file
                 string postids = id.ToString();
-                string datauser = DependencyService.Get<ISaveAndLoad>().LoadText("temp.txt");
-               string[] testarray= datauser.Split(',');
-                string username = testarray[1];
+                string datauser = DependencyService.Get<ISaveAndLoad>().LoadText("temp.json");
+                string usernames = jsonconverter.ToObjectstring(datauser);
+                Console.WriteLine(usernames);
+                //split the file string and retreive user name
+                string[] testarray = usernames.Split(',');
+                string usernameinputed = testarray[0];
                 Console.WriteLine(datauser);
-                storetopic storereply = new storetopic(id, "" + detail.Text + "", "" + date + "", "monkey.jpg",""+postname+"",""+username+"");
+                //set save data
+                storetopic storereply = new storetopic(id, "" + detail.Text + "", "" + date + "", "monkey.jpg",""+postname+"",""+usernameinputed+"",""+usersfooter+"");
                 listreply.Add(storereply);
-                id+=1;
-               // list.ForEach(Console.WriteLine);
-
-                // Console.WriteLine(list);
-                /* storeuser testpost = jsonapi.ListToJason(list);
-                   testpost.saveuser();*/
+                id+=1;   
                 storereply testpost =new storereply();
                 testpost.savereply();
-                //  DisplayAlert("Success!", "" + topic.Text + "", "" + detail.Text + "", "OK");
                 storeuser userinfo = new storeuser();
-              //  StreamReader sr = new StreamReader();
-
-               // storeuser testuser = await storeuser.loaduser("" + username.Text + "");
                 string tested = userinfo.password;
-
                 Console.WriteLine("posted success");
-                DisplayAlert("Success!", "You are succssfullt replied!", "OK");
+               await DisplayAlert("Success!", "You are succssfullt replied!", "OK");
                 await Navigation.PushAsync(new detail(data));
             }
         }
